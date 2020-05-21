@@ -20,5 +20,22 @@ namespace LiteCommerce.Admin.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Input(string id = "")
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                ViewBag.Title = " Create new Employee";
+            }
+            else
+            {
+                ViewBag.Title = "Edit a Employee";
+            }
+            return View();
+        }
     }
 }

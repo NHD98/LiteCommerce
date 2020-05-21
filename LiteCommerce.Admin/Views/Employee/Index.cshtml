@@ -1,5 +1,94 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Employees";
 }
-
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Input search value...">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-flat">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="container-fluid row" style="margin-bottom:10px;">
+    <div class="col-sm-8">
+        There are <b>1,000</b> Employees. Page 1/100
+    </div>
+    <div class="col-md-4 text-right">
+        <div class="btn-group">
+            <a href="~/Employee/Input" class="btn btn-sm btn-primary">Add Employee</a>
+            <button type="button" class="btn btn-sm btn-danger">Delete Employees</button>
+        </div>
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:30px">
+                        <input type="checkbox" />
+                    </th>
+                    <th style="width:50px">#</th>
+                    <th style="width: 240px">Name</th>
+                    <th>Milestones</th>
+                    <th>Contact Info</th>
+                    <th>Note</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                        <td>@i</td>
+                        <td>
+                            <div class="pull-left image">
+                                <img src="~/Themes/AdminLTE/dist/img/user2-160x160.jpg" height="60px" width="60px" class="img-circle" alt="User Image">
+                            </div>
+                            <span style="color:#0094ff; font-weight:bold; display:block">
+                                Shelley Burke
+                            </span>
+                            <span style="color:#646464;font-weight:bold">
+                                Sales Representative
+                            </span>
+                        </td>
+                        <td>
+                            <span style="display:block">BirthDay: 05/12/1998</span>
+                            <span>HireDate: 06/06/2020</span>
+                        </td>
+                        <td>
+                            <span style="display:block"><i class="fa fa-envelope"></i>Email@email.com</span>
+                            <span style="display:block"><i class="fa fa-home"></i>P.O. Box 78934, New Orleans - USA</span>
+                            <span style="display:block"><i class="fa fa-phone"></i> (100) 555-4822</span>
+                            <span style="display:block"><i class="fa fa-fax"></i> (100) 333-665411</span>
+                        </td>
+                        <td>
+                            <span style="display:block">Notes for employee</span>
+                        </td>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-default" href="~/Employee/Input/@i/">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix text-center">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>

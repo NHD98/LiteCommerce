@@ -16,7 +16,6 @@ namespace LiteCommerce.Admin.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [Authorize]
         public ActionResult Index()
         {
             return View();

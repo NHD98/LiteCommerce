@@ -1,5 +1,94 @@
-﻿
-@{
-    ViewBag.Title = "Order";
+﻿@{
+    ViewBag.Title = "List";
 }
-
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Input search value...">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-flat">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="container-fluid row" style="margin-bottom:10px;">
+    <div class="col-sm-8">
+        There are <b>1,000</b> Orders. Page 1/100
+    </div>
+    <div class="col-md-4 text-right">
+        <div class="btn-group">
+            <a href="~/Order/Create" class="btn btn-sm btn-primary">Add Order</a>
+            <button type="button" class="btn btn-sm btn-danger">Delete Orders</button>
+        </div>
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:30px">
+                        <input type="checkbox" />
+                    </th>
+                    <th style="width:50px">#</th>
+                    <th style="width:200px">Customer</th>
+                    <th style="width:200px">Employee</th>
+                    <th style="width:200px">Date</th>
+                    <th style="width:200px">Shipper</th>
+                    <th style="width:200px">Ship To</th>
+                    <th style="width:50px">Freight</th>
+                    <th style="width:50px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                        <td>@i</td>
+                        <td>
+                            <span>
+                                VINET
+                            </span>
+                        </td>
+                        <td>
+                            <span>Buchanan	Steven</span>
+                        </td>
+                        <td>
+                            <span style="display: block">Order date: 2018-07-04</span>
+                            <span style="display: block">Required date: 2018-07-04</span>
+                            <span style="display: block">Shipped date: 2018-07-04</span>
+                        </td>
+                        <td>
+                            <span>Federal Shipping</span>
+                        </td>
+                        <td>
+                            <span>P.O. Box 78934, New Orleans - USA</span>
+                        </td>
+                        <td>
+                            <span>32.3800</span>
+                        </td>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-default" href="~/Order/Create/@i/">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix text-center">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>

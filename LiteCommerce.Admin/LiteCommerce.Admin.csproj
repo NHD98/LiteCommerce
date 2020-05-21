@@ -7142,6 +7142,12 @@
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Account\ForgotPassoword.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Category\Input.cshtml" />
+    <Content Include="Views\Customer\Input.cshtml" />
+    <Content Include="Views\Employee\Input.cshtml" />
+    <Content Include="Views\Shipper\Input.cshtml" />
+    <Content Include="Views\Supplier\Input.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

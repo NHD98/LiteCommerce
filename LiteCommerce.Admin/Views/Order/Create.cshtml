@@ -1,5 +1,98 @@
-﻿
-@{
-    ViewBag.Title = "Create";
+﻿@{
 }
-
+<div class="box box-primary">
+    <form role="form">
+        <div class="box-header text-right">
+            <a href="~/Order">Back to List</a>
+        </div>
+        <div class="box-body">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label>Customer:</label>
+                    <select class="form-control">
+                        <option value="">-- Choose Customer --</option>
+                        <option value="ALFKI">Maria Anders</option>
+                        <option value="ANATR">Ana Trujillo</option>
+                        <option value="ANTON">Antonio Moreno</option>
+                        <option value="AROUT">Thomas Hardy</option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label>Employee:</label>
+                    <select class="form-control">
+                        <option value="">-- Choose Employee --</option>
+                        <option value="5">Buchanan	Steven</option>
+                        <option value="1">Davolio	Nancy</option>
+                        <option value="2">Fuller	Andrew</option>
+                        <option value="3">Leverling	Janet</option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label>Shipper:</label>
+                    <select class="form-control">
+                        <option value="">-- Choose Shipper --</option>
+                        <option value="1">Speedy Express</option>
+                        <option value="2">United Package</option>
+                        <option value="3">Federal Shipping</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label>OrderDate:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label>RequiredDate:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label>ShippedDate:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Freight:</label>
+                <input type="text" class="form-control" placeholder="Freight">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label>ShipAddress:</label>
+                    <input type="text" class="form-control" placeholder="Ex: New Orleans">
+                </div>
+                <div class="col-sm-4">
+                    <label>ShipCity:</label>
+                    <input type="text" class="form-control" placeholder="Ex: New Orleans">
+                </div>
+                <div class="col-sm-4">
+                    <label>ShipCountry:</label>
+                    <input type="text" class="form-control" placeholder="Ex: VietNam">
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Order">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>

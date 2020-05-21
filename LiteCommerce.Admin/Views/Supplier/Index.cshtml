@@ -1,6 +1,89 @@
-﻿
-@{
-    ViewBag.Title = "Suppliers";
+﻿@{
+    ViewBag.Title = "Manage Suppliers";
 }
-
-
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Input search value...">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-flat">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="container-fluid row" style="margin-bottom:10px;">
+    <div class="col-sm-8">
+        There are <b>1,000</b> Suppliers. Page 1/100
+    </div>
+    <div class="col-md-4 text-right">
+        <div class="btn-group">
+            <a href="~/Supplier/Input" class="btn btn-sm btn-primary">Add Supplier</a>
+            <button type="button" class="btn btn-sm btn-danger">Delete Suppliers</button>
+        </div>
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:30px">
+                        <input type="checkbox" />
+                    </th>
+                    <th style="width:50px">#</th>
+                    <th style="width:auto">Name</th>
+                    <th style="width:200px">Address</th>
+                    <th style="width:200px">Contact Info</th>
+                    <th style="width:80px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 1; i <= 3; i++)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                        <td>@i</td>
+                        <td>
+                            <p style="color:#0094ff; font-weight:bold; display:block">
+                                New Orleans Cajun Delights
+                            </p>
+                            <p style="color:#646464">
+                                Order Administrator:
+                            </p>
+                            <p style="color:#646464;font-weight:bold">
+                                Shelley Burke
+                            </p>
+                        </td>
+                        <td>
+                            <p style="display:block">P.O. Box 78934</p>
+                            <p>New Orleans - USA</p>
+                        </td>
+                        <td>
+                            <p style="display:block"><i class="fa fa-phone"></i> (100) 555-4822</p>
+                            <p style="display:block"><i class="fa fa-fax"></i> (100) 333-665411</p>
+                            <p style="display:block"><i class="fa fa-home"></i> https://neworleans.com</p>
+                        </td>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-default" href="~/Supplier/Input/@i/">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix text-center">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>

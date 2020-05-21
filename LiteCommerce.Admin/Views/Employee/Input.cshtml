@@ -1,0 +1,115 @@
+﻿@{
+}
+<div class="box box-primary">
+    <form role="form">
+        <div class="box-header text-right">
+            <a href="~/Employee">Back to List</a>
+        </div>
+        <div class="box-body">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <div class="pull-left image">
+                        <img src="~/Themes/AdminLTE/dist/img/user2-160x160.jpg" height="100px" width="100px" class="img-circle" alt="User Image">
+                    </div>
+                    <div>
+                        <label style="margin-left: 10px; color:#555; "> <input type="file" id="exampleInputFile"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label>FristName:</label>
+                    <input type="text" class="form-control" placeholder="First Name">
+                </div>
+                <div class="col-sm-4">
+                    <label>LastName:</label>
+                    <input type="text" class="form-control" placeholder="Last Name">
+                </div>
+                <div class="col-sm-4">
+                    <label>Title:</label>
+                    <select class="form-control">
+                        <option value="">-- Choose Title --</option>
+                        <option value="Sales Representative">Sales Representative</option>
+                        <option value="Vice President, Sales">Vice President, Sales</option>
+                        <option value="Inside Sales Coordinator">Inside Sales Coordinator</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>BirthDay:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label>HireDay:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <input type="text" class="form-control" placeholder="Address">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Country:</label>
+                    <select class="form-control">
+                        <option value="">-- Choose Country --</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CHINA">China</option>
+                        <option value="VN">Vietnam</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label>City:</label>
+                    <input type="text" class="form-control" placeholder="Ex: New Orleans">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Phone:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label>Fax:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-fax"></i>
+                        </div>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label>Note:</label>
+                    <textarea class="form-control" rows="4" name="note"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Employee">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
