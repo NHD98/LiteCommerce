@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BusinessLayerConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -170,6 +171,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="note.txt" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -7148,6 +7150,7 @@
     <Content Include="Views\Employee\Input.cshtml" />
     <Content Include="Views\Shipper\Input.cshtml" />
     <Content Include="Views\Supplier\Input.cshtml" />
+    <Content Include="Views\Product\Input.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -7160,6 +7163,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LiteCommerce.BusinessLayers\LiteCommerce.BusinessLayers.csproj">
+      <Project>{1b58f9f1-dc69-4d35-b3c5-7b48b6afe2b0}</Project>
+      <Name>LiteCommerce.BusinessLayers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LiteCommerce.DataLayers\LiteCommerce.DataLayers.csproj">
+      <Project>{4f85c85e-9094-46b9-91d2-3062618e3e62}</Project>
+      <Name>LiteCommerce.DataLayers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LiteCommerce.DomainModels\LiteCommerce.DomainModels.csproj">
+      <Project>{37811111-457b-4dcb-8b5a-10e451e15b44}</Project>
+      <Name>LiteCommerce.DomainModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,18 @@
+﻿N-layers: 3 layers
+	- Presentation layer
+	- Block:
+		- Business layer: cài đặt các chức năng tác nghiệp thông qua các chức năng từ data layer
+		- Domain models
+		- Data layer: tầng đảm nhận xử lý dữ liệu.
+	- Database
+
+
+Global.asax:
+	- Application_Start: Hàm chạy đầu tiên khi chạy chương trình.
+
+Web.config:
+	- connectionString: chuỗi kết nối đến Database.
+	- authentication (mode = "Forms"): bật chế độ xác thực bằng form
+	- machineKey: khởi tạo machineKey để xác thực request là đến từ trang web của mình.
+
+Khi publish sản phẩm, không sử dụng tài khoản sa, phải mã hóa connectionString

@@ -1,0 +1,7 @@
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DataLayers.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DataLayers.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DomainModels.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DataLayers\bin\Debug\LiteCommerce.DomainModels.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.dll
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DataLayers\obj\Debug\LiteCommerce.DataLayers.pdb
