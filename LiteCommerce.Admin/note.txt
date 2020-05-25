@@ -16,3 +16,7 @@ Web.config:
 	- machineKey: khởi tạo machineKey để xác thực request là đến từ trang web của mình.
 
 Khi publish sản phẩm, không sử dụng tài khoản sa, phải mã hóa connectionString
+
+SQLSERVER:
+	Pagination: đánh số dòng bằng Row_NUMBER(), sau đó select theo số dòng.
+	Execute Query: Kết quả trả về là 1 table -> executeReader, kết quả trả về là 1 giá trị -> executeScalar

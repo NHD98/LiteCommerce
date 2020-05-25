@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICustomerDAL.cs" />
     <Compile Include="ISupplierDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServer\CustomerDAL.cs" />
     <Compile Include="SqlServer\SupplierDAL.cs" />
   </ItemGroup>
   <ItemGroup>

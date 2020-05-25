@@ -18,11 +18,22 @@ namespace LiteCommerce.Admin.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, string searchValue = "")
         {
+            int pageSize = 3;
             int rowCount = 0;
-            List<Supplier> model = CatalogBLL.ListOfSuppliers(1, 10, "", out rowCount);
-            ViewBag.RowCount = rowCount;
+            List<Supplier> listOfSupplier = CatalogBLL.ListOfSuppliers(page, pageSize, searchValue, out rowCount);
+
+            var model = new Models.SupplierPaginationResult()
+            {
+                Page = page,
+                Data = listOfSupplier,
+                PageSize = pageSize,
+                RowCount = rowCount,
+                SearchValue = searchValue
+            };
+
+            //ViewBag.RowCount = rowCount;
             return View(model);
         }
         /// <summary>

@@ -17,12 +17,14 @@ namespace LiteCommerce.BusinessLayers
         public static void Initialize(string connectionString)
         {
             SupplierDB = new DataLayers.SqlServer.SupplierDAL(connectionString);
+            CustomerDB = new DataLayers.SqlServer.CustomerDAL(connectionString);
         }
         #region Khai báo các thuộc tính giao tiếp với DAL
         /// <summary>
         /// 
         /// </summary>
         private static ISupplierDAL SupplierDB { get; set; }
+        private static ICustomerDAL CustomerDB { get; set; }
         #endregion
 
         #region Khai báo các chức năng xử lý nghiệp vụ
@@ -34,6 +36,16 @@ namespace LiteCommerce.BusinessLayers
                 pageSize = 20;
             rowCount = SupplierDB.Count(searchValue);
             return SupplierDB.List(page, pageSize, searchValue);
+        }
+
+        public static List<Customer> ListOfCustomers(int page, int pageSize, string searchValue, out int rowCount)
+        {
+            if (page < 1)
+                page = 1;
+            if (pageSize < 0)
+                pageSize = 20;
+            rowCount = CustomerDB.Count(searchValue);
+            return CustomerDB.List(page, pageSize, searchValue);
         }
         #endregion
     }
