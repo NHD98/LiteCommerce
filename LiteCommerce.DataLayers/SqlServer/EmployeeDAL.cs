@@ -9,11 +9,11 @@ using System.Data;
 
 namespace LiteCommerce.DataLayers.SqlServer
 {
-    public class CustomerDAL : ICustomerDAL
+    public class EmployeeDAL : IEmployeeDAL
     {
         private string connectionString;
 
-        public CustomerDAL(string connectionString)
+        public EmployeeDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
@@ -23,7 +23,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public int Add(Customer data)
+        public int Add(Employee data)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +44,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "select COUNT(*) from Customers where @searchValue = N'' or ContactName like @searchValue";
+                cmd.CommandText = "select COUNT(*) from Employees where @searchValue = N'' or (FirstName like @searchValue) or (LastName like @searchValue)";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@searchValue", searchValue);
@@ -58,18 +58,18 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="CustomerIDs"></param>
+        /// <param name="EmployeeIDs"></param>
         /// <returns></returns>
-        public int Delete(int[] CustomerIDs)
+        public int Delete(int[] EmployeeIDs)
         {
             throw new NotImplementedException();
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="CustomerID"></param>
+        /// <param name="EmployeeID"></param>
         /// <returns></returns>
-        public Customer Get(int CustomerID)
+        public Employee Get(int EmployeeID)
         {
             throw new NotImplementedException();
         }
@@ -80,10 +80,10 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public List<Customer> List(int page, int pageSize, string searchValue)
+        public List<Employee> List(int page, int pageSize, string searchValue)
         {
 
-            List<Customer> data = new List<Customer>();
+            List<Employee> data = new List<Employee>();
             if (!string.IsNullOrEmpty(searchValue))
             {
                 searchValue = "%" + searchValue + "%";
@@ -94,9 +94,9 @@ namespace LiteCommerce.DataLayers.SqlServer
                 // Tạo lệnh thực thi truy vấn dữ liệu
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"select * from (
-	                                    select ROW_NUMBER() over(order by ContactName) as RowNumber, Customers.*
-	                                    from Customers
-	                                    where (@searchValue = N'') or (ContactName like @searchValue)
+	                                    select ROW_NUMBER() over(order by FirstName) as RowNumber, Employees.*
+	                                    from Employees
+	                                    where (@searchValue = N'') or (FirstName like @searchValue) or (LastName like @searchValue)
                                     ) as t
                                     where t.RowNumber between @pageSize * (@page -  1) + 1 and @page * @pageSize";
                 cmd.CommandType = CommandType.Text;
@@ -109,17 +109,22 @@ namespace LiteCommerce.DataLayers.SqlServer
                 {
                     while (dbReader.Read())
                     {
-                        data.Add(new Customer()
+                        data.Add(new Employee()
                         {
-                            CustomerID = dbReader["CustomerID"].ToString(),
-                            CompanyName = Convert.ToString(dbReader["CompanyName"]),
-                            ContactName = Convert.ToString(dbReader["ContactName"]),
-                            ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
+                            EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
                             Address = Convert.ToString(dbReader["Address"]),
+                            BirthDate = Convert.ToDateTime(dbReader["BirthDate"]),
                             City = Convert.ToString(dbReader["City"]),
                             Country = Convert.ToString(dbReader["Country"]),
-                            Phone = Convert.ToString(dbReader["Phone"]),
-                            Fax = Convert.ToString(dbReader["Fax"])
+                            Email = Convert.ToString(dbReader["Email"]),
+                            FirstName = Convert.ToString(dbReader["FirstName"]),
+                            HireDate = Convert.ToDateTime(dbReader["HireDate"]),
+                            HomePhone = Convert.ToString(dbReader["HomePhone"]),
+                            LastName = Convert.ToString(dbReader["LastName"]),
+                            Notes = Convert.ToString(dbReader["Notes"]),
+                            Password = Convert.ToString(dbReader["Password"]),
+                            PhotoPath = Convert.ToString(dbReader["PhotoPath"]),
+                            Title = Convert.ToString(dbReader["Title"])
                         });
                     }
                 }
@@ -133,7 +138,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public bool Update(Customer data)
+        public bool Update(Employee data)
         {
             throw new NotImplementedException();
         }

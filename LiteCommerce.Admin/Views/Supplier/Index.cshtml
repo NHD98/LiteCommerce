@@ -83,19 +83,51 @@
     </div>
     <div class="box-footer clearfix text-center">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="~/Supplier?searchValue=@Model.SearchValue">«</a></li>
-            @for (int page = 1; page <= Model.PageCount; page++)
-            {
-                if (page == Model.Page)
+            @{
+                int currentPage = Model.Page;
+                // Pagination head
+                if (currentPage - 5 > 0)
                 {
-                    <li class="active"><a href="#">@page</a></li>
+                    int prePage = currentPage - 1;
+                    <li><a href="~/Customer?searchValue=@Model.SearchValue&page=1">‹‹</a></li>
+                    <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
+                    <li><a href="#">...</a></li>
                 }
-                else
+                int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
+                for (int page = startPage; page <= currentPage; page++)
                 {
-                    <li><a href="~/Supplier?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    if (page == currentPage)
+                    {
+                        <li class="active"><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                    }
+                }
+
+                // Pagination tail
+                int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
+                for (int page = currentPage + 1; page <= endPage; page++)
+                {
+                    if (page == currentPage)
+                    {
+                        <li class="active"><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                    }
+                }
+                if (currentPage + 4 < Model.PageCount)
+                {
+                    int nextPage = currentPage + 1;
+                    <li><a href="#">...</a></li>
+                    <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
+                    <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
                 }
             }
-            <li><a href="~/Supplier?page=@Model.PageCount&searchvalue=@Model.SearchValue">»</a></li>
         </ul>
     </div>
+
 </div>

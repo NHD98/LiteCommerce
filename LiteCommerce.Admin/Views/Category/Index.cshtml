@@ -1,21 +1,25 @@
-﻿@{
+﻿@model LiteCommerce.Admin.Models.CategoryPaginationResult
+@{
     ViewBag.Title = "Category";
+    int i = 0;
 }
 <div class="box box-primary">
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Input search value...">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-primary btn-flat">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/Category" method="get">
+            <div class="input-group input-group-sm">
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 <div class="container-fluid row" style="margin-bottom:10px;">
     <div class="col-sm-8">
-        There are <b>1,000</b> Categories. Page 1/100
+        There are <b>@Model.RowCount</b> Categories. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
     </div>
     <div class="col-md-4 text-right">
         <div class="btn-group">
@@ -39,18 +43,18 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 1; i <= 3; i++)
+                @foreach (var category in Model.Data)
                 {
                     <tr>
                         <td>
                             <input type="checkbox" />
                         </td>
-                        <td>@i</td>
+                        <td>@(++i)</td>
                         <td>
-                            <span style="display:block"> foods</span>
+                            <span style="display:block"> @category.CategoryName</span>
                         </td>
                         <td>
-                            <span style="display:block">fruits, drinks, canned foods  </span>
+                            <span style="display:block">@category.Description</span>
                         </td>
                         <td class="text-right">
                             <a class="btn btn-sm btn-default" href="~/Category/Input/@i/">
@@ -64,11 +68,51 @@
     </div>
     <div class="box-footer clearfix text-center">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
+            @{
+                int currentPage = Model.Page;
+                // Pagination head
+                if (currentPage - 5 > 0)
+                {
+                    int prePage = currentPage - 1;
+                    <li><a href="~/Category?searchValue=@Model.SearchValue&page=1">‹‹</a></li>
+                    <li><a href="~/Category?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
+                    <li><a href="#">...</a></li>
+                }
+                int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
+                for (int page = startPage; page <= currentPage; page++)
+                {
+                    if (page == currentPage)
+                    {
+                        <li class="active"><a href="~/Category?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Category?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                    }
+                }
+
+                // Pagination tail
+                int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
+                for (int page = currentPage + 1; page <= endPage; page++)
+                {
+                    if (page == currentPage)
+                    {
+                        <li class="active"><a href="~/Category?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Category?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                    }
+                }
+                if (currentPage + 4 < Model.PageCount)
+                {
+                    int nextPage = currentPage + 1;
+                    <li><a href="#">...</a></li>
+                    <li><a href="~/Category?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
+                    <li><a href="~/Category?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
+                }
+            }
         </ul>
     </div>
+
 </div>

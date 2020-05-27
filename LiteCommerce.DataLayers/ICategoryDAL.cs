@@ -1,21 +1,22 @@
 ﻿using LiteCommerce.DomainModels;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayers
 {
-    /// <summary>
-    /// Interface Supplier
-    /// </summary>
-    public interface ISupplierDAL
+    public interface ICategoryDAL
     {
         /// <summary>
-        /// Hiển thị danh sách Supplier, có phân trang theo kích thước trang và có thể tìm kiếm
+        /// Hiển thị danh sách Category, có phân trang theo kích thước trang và có thể tìm kiếm
         /// </summary>
         /// <param name="page">Số trang</param>
         /// <param name="pageSize">Kích thước trang</param>
         /// <param name="searchValue">Từ khóa tìm kiếm</param>
         /// <returns></returns>
-        List<Supplier> List(int page, int pageSize, string searchValue);
+        List<Category> List(int page, int pageSize, string searchValue);
         /// <summary>
         /// Đếm số lượng tìm kiếm được
         /// </summary>
@@ -23,31 +24,31 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         int Count(string searchValue);
         /// <summary>
-        /// Lấy thông tin của 1 Supplier theo ID. Trả về Supplier lấy được.
+        /// Lấy thông tin của 1 Category theo ID. Trả về Category lấy được.
         /// </summary>
-        /// <param name="supplierID">ID của Supplier cần lấy thông tin</param>
+        /// <param name="CategoryID">ID của Category cần lấy thông tin</param>
         /// <returns></returns>
-        Supplier Get(int supplierID);
+        Category Get(int CategoryID);
         /// <summary>
-        /// Bổ sung 1 Supplier. Hàm trả về ID của Supplier được bổ sung.
+        /// Bổ sung 1 Category. Hàm trả về ID của Category được bổ sung.
         /// Nếu lỗi, hàm trả về giá trị nhỏ hơn hoặc bằng 0.
         /// </summary>
-        /// <param name="data">Dữ liệu của Supplier cần bổ sung</param>
+        /// <param name="data">Dữ liệu của Category cần bổ sung</param>
         /// <returns></returns>
-        int Add(Supplier data);
+        int Add(Category data);
         /// <summary>
-        /// Cập nhật thông tin của 1 Supplier.
+        /// Cập nhật thông tin của 1 Category.
         /// Trả về true nếu cập nhật được, false nếu không cập nhật được.
         /// </summary>
         /// <param name="data">Thông tin đã sửa</param>
         /// <returns></returns>
-        bool Update(Supplier data);
+        bool Update(Category data);
         /// <summary>
-        /// Xóa các Supplier.
-        /// Trả về số lượng Supplier đã được xóa
+        /// Xóa các Category.
+        /// Trả về số lượng Category đã được xóa
         /// </summary>
-        /// <param name="supplierIDs">Danh sách các ID của các Supplier cần xóa</param>
+        /// <param name="CategoryIDs">Danh sách các ID của các Category cần xóa</param>
         /// <returns></returns>
-        int Delete(int[] supplierIDs);
+        int Delete(int[] CategoryIDs);
     }
 }

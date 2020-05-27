@@ -33,7 +33,6 @@ namespace LiteCommerce.Admin.Controllers
                 SearchValue = searchValue
             };
 
-            //ViewBag.RowCount = rowCount;
             return View(model);
         }
         /// <summary>

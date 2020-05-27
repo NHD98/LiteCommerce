@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiteCommerce.BusinessLayers;
+using LiteCommerce.DomainModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,9 +18,22 @@ namespace LiteCommerce.Admin.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, string searchValue = "")
         {
-            return View();
+            int pageSize = 3;
+            int rowCount = 0;
+            List<Employee> listOfEmployee = CatalogBLL.ListOfEmployees(page, pageSize, searchValue, out rowCount);
+
+            var model = new Models.EmployeePaginationResult()
+            {
+                Data = listOfEmployee,
+                Page = page,
+                PageSize = pageSize,
+                RowCount = rowCount,
+                SearchValue = searchValue
+            };
+
+            return View(model);
         }
         /// <summary>
         /// 

@@ -18,12 +18,11 @@ namespace LiteCommerce.Admin.Models
         {
             get
             {
-                int p = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(RowCount / PageSize)));
-                //int p = RowCount / PageSize;
-                //if (RowCount % PageSize > 0)
-                //{
-                //    p++;
-                //}
+                int p = RowCount / PageSize;
+                if (RowCount % PageSize > 0)
+                {
+                    p++;
+                }
                 return p;
             }
         }
