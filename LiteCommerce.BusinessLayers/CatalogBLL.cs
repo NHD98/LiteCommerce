@@ -125,7 +125,7 @@ namespace LiteCommerce.BusinessLayers
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public static bool UpdateCustomer (Customer customer)
+        public static bool UpdateCustomer(Customer customer)
         {
             return CustomerDB.Update(customer);
         }
@@ -150,6 +150,42 @@ namespace LiteCommerce.BusinessLayers
                 pageSize = 20;
             rowCount = ShipperDB.Count(searchValue);
             return ShipperDB.List(page, pageSize, searchValue);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shipper"></param>
+        /// <returns></returns>
+        public static int AddShipper(Shipper shipper)
+        {
+            return ShipperDB.Add(shipper);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shipper"></param>
+        /// <returns></returns>
+        public static bool UpdateShipper(Shipper shipper)
+        {
+            return ShipperDB.Update(shipper);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shipperIDs"></param>
+        /// <returns></returns>
+        public static int DeleteShipper(int[] shipperIDs)
+        {
+            return ShipperDB.Delete(shipperIDs);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shipperID"></param>
+        /// <returns></returns>
+        public static Shipper GetShipper(int shipperID)
+        {
+            return ShipperDB.Get(shipperID);
         }
         /// <summary>
         /// Lấy danh sách Category. Có phân trang

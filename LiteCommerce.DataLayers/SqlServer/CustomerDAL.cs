@@ -116,7 +116,9 @@ namespace LiteCommerce.DataLayers.SqlServer
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"DELETE FROM Customers
-                                            WHERE(CustomerID = @CustomerID)";
+                                    WHERE(CustomerID = @CustomerID) AND CustomerID NOT IN (
+                                        SELECT DISTINCT CustomerID FROM Orders
+                                    )";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.Add("@CustomerID", SqlDbType.NChar);

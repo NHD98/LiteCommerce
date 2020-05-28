@@ -17,104 +17,105 @@
         </form>
     </div>
 </div>
-<div class="container-fluid row" style="margin-bottom:10px;">
-    <div class="col-sm-8">
-        There are <b>@Model.RowCount</b> Shippers. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
-    </div>
-    <div class="col-md-4 text-right">
-        <div class="btn-group">
-            <a href="~/Shipper/Input" class="btn btn-sm btn-primary">Add Shipper</a>
-            <button type="button" class="btn btn-sm btn-danger">Delete Shippers</button>
+<form action="~/Shipper/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px;">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Shippers. Page @string.Format("{0}/{1}", Model.Page, Model.PageCount)
+        </div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a href="~/Shipper/Input" class="btn btn-sm btn-primary">Add Shipper</a>
+                <button type="submit" class="btn btn-sm btn-danger">Delete Shippers</button>
+            </div>
         </div>
     </div>
-</div>
-<div class="box box-success">
-    <div class="box-body">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="width:30px">
-                        <input type="checkbox" />
-                    </th>
-                    <th style="width:50px">#</th>
-                    <th>Company Name</th>
-                    <th>Contact Info</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var shipper in Model.Data)
-                {
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>
+                        <th style="width:30px">
                             <input type="checkbox" />
-                        </td>
-                        <td>@(++i)</td>
-                        <td>
-                            <p style="color:#0094ff; font-weight:bold; display:block">
-                                @shipper.CompanyName
-                            </p>
-                        </td>
-                        <td>
-                            <p style="display:block"><i class="fa fa-phone"></i> @shipper.Phone</p>
-                        </td>
-                        <td class="text-right">
-                            <a class="btn btn-sm btn-default" href="~/Supplier/Input/@i/">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        </td>
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th>Company Name</th>
+                        <th>Contact Info</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="box-footer clearfix text-center">
-        <ul class="pagination pagination-sm no-margin pull-right">
-            @{
-                int currentPage = Model.Page;
-                // Pagination head
-                if (currentPage - 5 > 0)
-                {
-                    int prePage = currentPage - 1;
-                    <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=1">‹‹</a></li>
-                    <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
-                    <li><a href="#">...</a></li>
-                }
-                int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
-                for (int page = startPage; page <= currentPage; page++)
-                {
-                    if (page == currentPage)
+                </thead>
+                <tbody>
+                    @foreach (var shipper in Model.Data)
                     {
-                        <li class="active"><a href="~/Shipper?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="shipperIDs" value="@shipper.ShipperID" />
+                            </td>
+                            <td>@(++i + (Model.Page - 1) * Model.PageSize)</td>
+                            <td>
+                                <p style="color:#0094ff; font-weight:bold; display:block">
+                                    @shipper.CompanyName
+                                </p>
+                            </td>
+                            <td>
+                                <p style="display:block"><i class="fa fa-phone"></i> @shipper.Phone</p>
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-default" href="~/Shipper/Input/@shipper.ShipperID/">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
                     }
-                    else
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                @{
+                    int currentPage = Model.Page;
+                    // Pagination head
+                    if (currentPage - 5 > 0)
                     {
-                        <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        int prePage = currentPage - 1;
+                        <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=1">‹‹</a></li>
+                        <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
+                        <li><a href="#">...</a></li>
                     }
-                }
+                    int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
+                    for (int page = startPage; page <= currentPage; page++)
+                    {
+                        if (page == currentPage)
+                        {
+                            <li class="active"><a href="~/Shipper?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                    }
 
-                // Pagination tail
-                int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
-                for (int page = currentPage + 1; page <= endPage; page++)
-                {
-                    if (page == currentPage)
+                    // Pagination tail
+                    int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
+                    for (int page = currentPage + 1; page <= endPage; page++)
                     {
-                        <li class="active"><a href="~/Shipper?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        if (page == currentPage)
+                        {
+                            <li class="active"><a href="~/Shipper?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
                     }
-                    else
+                    if (currentPage + 4 < Model.PageCount)
                     {
-                        <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        int nextPage = currentPage + 1;
+                        <li><a href="#">...</a></li>
+                        <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
+                        <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
                     }
                 }
-                if (currentPage + 4 < Model.PageCount)
-                {
-                    int nextPage = currentPage + 1;
-                    <li><a href="#">...</a></li>
-                    <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
-                    <li><a href="~/Shipper?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
-                }
-            }
-        </ul>
+            </ul>
+        </div>
     </div>
-
-</div>
+</form>

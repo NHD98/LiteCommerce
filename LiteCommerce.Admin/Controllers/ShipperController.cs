@@ -39,17 +39,78 @@ namespace LiteCommerce.Admin.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Input(string id = "")
         {
-            if (string.IsNullOrEmpty(id))
+            try
             {
-                ViewBag.Title = " Create new Shipper";
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewBag.Title = " Create new Shipper";
+                    Shipper shipper = new Shipper()
+                    {
+                        ShipperID = 0
+                    };
+                    return View(shipper);
+                }
+                else
+                {
+                    ViewBag.Title = "Edit a Shipper";
+                    Shipper shipper = CatalogBLL.GetShipper(Convert.ToInt32(id));
+                    if (shipper == null)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return View(shipper);
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ViewBag.Title = "Edit a Shipper";
+                return Content(ex.Message + ": " + ex.StackTrace);
             }
-            return View();
+        }
+
+        public ActionResult Input(Shipper shipper)
+        {
+            try
+            {
+                // Kiểm tra dữ liệu vào
+                if (string.IsNullOrEmpty(shipper.CompanyName))
+                {
+                    ModelState.AddModelError("CompanyName", "Company Name is invalid");
+                }
+                if (string.IsNullOrEmpty(shipper.Phone))
+                {
+                    shipper.Phone = "";
+                }
+
+                // Lưu data vào DB
+                if (shipper.ShipperID == 0)
+                {
+                    CatalogBLL.AddShipper(shipper);
+                }
+                else
+                {
+                    CatalogBLL.UpdateShipper(shipper);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message + ": " + ex.StackTrace);
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult Delete(int[] shipperIDs)
+        {
+            if (shipperIDs != null)
+            {
+                CatalogBLL.DeleteShipper(shipperIDs);
+            }
+            return RedirectToAction("Index");
         }
     }
 }
