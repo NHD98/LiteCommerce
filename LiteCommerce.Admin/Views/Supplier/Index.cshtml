@@ -17,117 +17,118 @@
         </form>
     </div>
 </div>
-<div class="container-fluid row" style="margin-bottom:10px;">
-    <div class="col-sm-8">
-        There are <b>@Model.RowCount</b> Suppliers. Page <b>@string.Format("{0}/{1}", Model.Page, Model.PageCount)</b>
-    </div>
-    <div class="col-md-4 text-right">
-        <div class="btn-group">
-            <a href="~/Supplier/Input" class="btn btn-sm btn-primary">Add Supplier</a>
-            <button type="button" class="btn btn-sm btn-danger">Delete Suppliers</button>
+<form action="~/Supplier/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px;">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Suppliers. Page <b>@string.Format("{0}/{1}", Model.Page, Model.PageCount)</b>
+        </div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <a href="~/Supplier/Input" class="btn btn-sm btn-primary">Add Supplier</a>
+                <button type="submit" class="btn btn-sm btn-danger">Delete Suppliers</button>
+            </div>
         </div>
     </div>
-</div>
-<div class="box box-success">
-    <div class="box-body">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="width:30px">
-                        <input type="checkbox" />
-                    </th>
-                    <th style="width:50px">#</th>
-                    <th style="width:auto">Name</th>
-                    <th style="width:200px">Address</th>
-                    <th style="width:200px">Contact Info</th>
-                    <th style="width:80px"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var supplier in Model.Data)
-                {
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>
+                        <th style="width:30px">
                             <input type="checkbox" />
-                        </td>
-                        <td>@(++i)</td>
-                        <td>
-                            <p style="color:#0094ff; font-weight:bold; display:block">
-                                @supplier.CompanyName
-                            </p>
-                            <span style="color:#646464">
-                                @supplier.ContactTitle:
-                            </span>
-                            <span style="color:#646464;font-weight:bold">
-                                @supplier.ContactName
-                            </span>
-                        </td>
-                        <td>
-                            <p style="display:block">@supplier.Address</p>
-                            <p>@supplier.City</p>
-                        </td>
-                        <td>
-                            <p style="display:block"><i class="fa fa-phone"></i> @supplier.Phone</p>
-                            <p style="display:block"><i class="fa fa-fax"></i> @supplier.Fax</p>
-                            <p style="display:block"><i class="fa fa-home"></i>@supplier.HomePage</p>
-                        </td>
-                        <td class="text-right">
-                            <a class="btn btn-sm btn-default" href="~/Supplier/Input/@i/">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        </td>
+                        </th>
+                        <th style="width:50px">#</th>
+                        <th style="width:auto">Name</th>
+                        <th style="width:200px">Address</th>
+                        <th style="width:200px">Contact Info</th>
+                        <th style="width:80px"></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="box-footer clearfix text-center">
-        <ul class="pagination pagination-sm no-margin pull-right">
-            @{
-                int currentPage = Model.Page;
-                // Pagination head
-                if (currentPage - 5 > 0)
-                {
-                    int prePage = currentPage - 1;
-                    <li><a href="~/Customer?searchValue=@Model.SearchValue&page=1">‹‹</a></li>
-                    <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
-                    <li><a href="#">...</a></li>
-                }
-                int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
-                for (int page = startPage; page <= currentPage; page++)
-                {
-                    if (page == currentPage)
+                </thead>
+                <tbody>
+                    @foreach (var supplier in Model.Data)
                     {
-                        <li class="active"><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        <tr>
+                            <td>
+                                <input name="supplierIDs" value="@supplier.SupplierID" type="checkbox" />
+                            </td>
+                            <td>@(++i + (Model.Page - 1)*Model.PageSize)</td>
+                            <td>
+                                <p style="color:#0094ff; font-weight:bold; display:block">
+                                    @supplier.CompanyName
+                                </p>
+                                <span style="color:#646464">
+                                    @supplier.ContactTitle:
+                                </span>
+                                <span style="color:#646464;font-weight:bold">
+                                    @supplier.ContactName
+                                </span>
+                            </td>
+                            <td>
+                                <p style="display:block">@supplier.Address</p>
+                                <p>@supplier.City</p>
+                            </td>
+                            <td>
+                                <p style="display:block"><i class="fa fa-phone"></i> @supplier.Phone</p>
+                                <p style="display:block"><i class="fa fa-fax"></i> @supplier.Fax</p>
+                                <p style="display:block"><i class="fa fa-home"></i>@supplier.HomePage</p>
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-sm btn-default" href="~/Supplier/Input/@supplier.SupplierID/">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
                     }
-                    else
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix text-center">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                @{
+                    int currentPage = Model.Page;
+                    // Pagination head
+                    if (currentPage - 5 > 0)
                     {
-                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        int prePage = currentPage - 1;
+                        <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=1">‹‹</a></li>
+                        <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
+                        <li><a href="#">...</a></li>
                     }
-                }
+                    int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
+                    for (int page = startPage; page <= currentPage; page++)
+                    {
+                        if (page == currentPage)
+                        {
+                            <li class="active"><a href="~/Supplier?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                    }
 
-                // Pagination tail
-                int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
-                for (int page = currentPage + 1; page <= endPage; page++)
-                {
-                    if (page == currentPage)
+                    // Pagination tail
+                    int endPage = currentPage + 4 < Model.PageCount ? currentPage + 4 : Model.PageCount;
+                    for (int page = currentPage + 1; page <= endPage; page++)
                     {
-                        <li class="active"><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        if (page == currentPage)
+                        {
+                            <li class="active"><a href="~/Supplier?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        }
                     }
-                    else
+                    if (currentPage + 4 < Model.PageCount)
                     {
-                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                        int nextPage = currentPage + 1;
+                        <li><a href="#">...</a></li>
+                        <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
+                        <li><a href="~/Supplier?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
                     }
                 }
-                if (currentPage + 4 < Model.PageCount)
-                {
-                    int nextPage = currentPage + 1;
-                    <li><a href="#">...</a></li>
-                    <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
-                    <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
-                }
-            }
-        </ul>
+            </ul>
+        </div>
     </div>
-
-</div>
+</form>

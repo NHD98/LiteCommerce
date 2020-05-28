@@ -20,7 +20,6 @@ namespace LiteCommerce.BusinessLayers
             CustomerDB = new DataLayers.SqlServer.CustomerDAL(connectionString);
             ShipperDB = new DataLayers.SqlServer.ShipperDAL(connectionString);
             CategoryDB = new DataLayers.SqlServer.CategoryDAL(connectionString);
-            EmployeeDB = new DataLayers.SqlServer.EmployeeDAL(connectionString);
         }
         #region Khai báo các thuộc tính giao tiếp với DAL
         /// <summary>
@@ -30,12 +29,11 @@ namespace LiteCommerce.BusinessLayers
         private static ICustomerDAL CustomerDB { get; set; }
         private static IShipperDAL ShipperDB { get; set; }
         private static ICategoryDAL CategoryDB { get; set; }
-        private static IEmployeeDAL EmployeeDB { get; set; }
         #endregion
 
         #region Khai báo các chức năng xử lý nghiệp vụ
         /// <summary>
-        /// Lấy danh sách các Supplier
+        /// Lấy danh sách các Supplier. Có phân trang.
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -52,7 +50,43 @@ namespace LiteCommerce.BusinessLayers
             return SupplierDB.List(page, pageSize, searchValue);
         }
         /// <summary>
-        /// Lây danh sách các Customer
+        /// Lấy thông tin của 1 supplier dựa vào ID
+        /// </summary>
+        /// <param name="supplierID"></param>
+        /// <returns></returns>
+        public static Supplier GetSupplier(int supplierID)
+        {
+            return SupplierDB.Get(supplierID);
+        }
+        /// <summary>
+        /// Thêm 1 supplier. Hàm trả về ID của supplier được thêm vào.
+        /// </summary>
+        /// <param name="supplier"></param>
+        /// <returns></returns>
+        public static int AddSupplier(Supplier supplier)
+        {
+            return SupplierDB.Add(supplier);
+        }
+        /// <summary>
+        /// Cập nhật 1 supplier. Hàm trả về true nếu cập nhật thành công, false nếu thất bại.
+        /// </summary>
+        /// <param name="supplier"></param>
+        /// <returns></returns>
+        public static bool UpdateSupplier(Supplier supplier)
+        {
+            return SupplierDB.Update(supplier);
+        }
+        /// <summary>
+        /// Xóa các supplier dựa vào ID
+        /// </summary>
+        /// <param name="supplierIDs"></param>
+        /// <returns></returns>
+        public static int DeleteSuppliers(int[] supplierIDs)
+        {
+            return SupplierDB.Delete(supplierIDs);
+        }
+        /// <summary>
+        /// Lây danh sách các Customer. Có phân trang.
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -69,7 +103,39 @@ namespace LiteCommerce.BusinessLayers
             return CustomerDB.List(page, pageSize, searchValue);
         }
         /// <summary>
-        /// Lấy danh sách các Shipper
+        /// 
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public static int AddCustomer(Customer customer)
+        {
+            return CustomerDB.Add(customer);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
+        public static Customer GetCustomer(string customerID)
+        {
+            return CustomerDB.Get(customerID);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public static bool UpdateCustomer (Customer customer)
+        {
+            return CustomerDB.Update(customer);
+        }
+
+        public static int DeleteCustomer(string[] customerIDs)
+        {
+            return CustomerDB.Delete(customerIDs);
+        }
+        /// <summary>
+        /// Lấy danh sách các Shipper. Có phân trang.
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -86,7 +152,7 @@ namespace LiteCommerce.BusinessLayers
             return ShipperDB.List(page, pageSize, searchValue);
         }
         /// <summary>
-        /// Lấy danh sách Category
+        /// Lấy danh sách Category. Có phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -105,23 +171,40 @@ namespace LiteCommerce.BusinessLayers
             return CategoryDB.List(page, pageSize, searchValue);
         }
         /// <summary>
-        /// Lấy danh sách các Employees
+        /// 
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="searchValue"></param>
-        /// <param name="rowCount"></param>
+        /// <param name="categoryID"></param>
         /// <returns></returns>
-        public static List<Employee> ListOfEmployees(int page, int pageSize, string searchValue, out int rowCount)
+        public static Category GetCategory(int categoryID)
         {
-            if (page < 1)
-                page = 1;
-            if (pageSize < 0)
-            {
-                pageSize = 20;
-            }
-            rowCount = EmployeeDB.Count(searchValue);
-            return EmployeeDB.List(page, pageSize, searchValue);
+            return CategoryDB.Get(categoryID);
+        }
+        /// <summary>
+        /// Thêmm mới 1 category, hàm trả về ID của category vừa thêm được, nếu bằng 0 nghĩa là thêm thất bại
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        public static int AddCategory(Category category)
+        {
+            return CategoryDB.Add(category);
+        }
+        /// <summary>
+        /// Cập nhật 1 category. Hàm trả về true nếu thành công, false nếu thất bại
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        public static bool UpdateCategory(Category category)
+        {
+            return CategoryDB.Update(category);
+        }
+        /// <summary>
+        /// Xóa các categories, hàm trả về số lượng categories xóa được
+        /// </summary>
+        /// <param name="categoryIDs"></param>
+        /// <returns></returns>
+        public static int DeleteCategories(int[] categoryIDs)
+        {
+            return CategoryDB.Delete(categoryIDs);
         }
         #endregion
     }

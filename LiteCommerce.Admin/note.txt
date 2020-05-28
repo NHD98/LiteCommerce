@@ -18,5 +18,13 @@ Web.config:
 Khi publish sản phẩm, không sử dụng tài khoản sa, phải mã hóa connectionString
 
 SQLSERVER:
-	Pagination: đánh số dòng bằng Row_NUMBER(), sau đó select theo số dòng.
-	Execute Query: Kết quả trả về là 1 table -> executeReader, kết quả trả về là 1 giá trị -> executeScalar
+	- Pagination: đánh số dòng bằng Row_NUMBER(), sau đó select theo số dòng.
+	- Execute Query: Kết quả trả về là 1 table -> executeReader, kết quả trả về là 1 giá trị -> executeScalar
+	- SELECT @@IDENTITY: SELECT ra ID của row vừa đc insert vào DB, trường hợp sử dụng cho các Table có ID Auto Increament
+	- SQL Server Profiler: tool hỗ trợ bắt lỗi lệnh SQL, nó sẽ bắt bất cứ lệnh SQL nào đc chạy.
+
+ModelState: dùng để giao tiếp lỗi giữa Action và View
+	- ModelState.AddModelError("key", "message") để thêm lỗi vào ModelState
+	- ModelState.IsValid() dùng để kiểm tra trong ModelState có lỗi nào ko, true nếu ko có và false nếu có.
+	- Sử dụng @Html.ValidationMessage("key") ở View để hiển thị message lỗi
+	- Sử dụng @Html.ValidationSummary() để hiển thị lỗi 1 cách tập trung 1 chổ

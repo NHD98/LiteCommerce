@@ -1,44 +1,53 @@
-﻿@{
+﻿@model LiteCommerce.DomainModels.Supplier
+@{
 
 }
 <div class="box box-primary">
-    <form role="form">
+    <form role="form" action="~/Supplier/Input" method="post">
         <div class="box-header text-right">
             <a href="~/Supplier">Back to List</a>
         </div>
         <div class="box-body">
+            <input type="hidden" name="SupplierID" value="@Model.SupplierID" />
             <div class="form-group">
-                <label>Company Name:</label>
-                <input type="text" class="form-control" placeholder="Enter Company Name">
+                <label>Company Name: @Html.ValidationMessage("CompanyName")</label>
+                <input name="CompanyName" type="text" class="form-control" placeholder="Enter Company Name" value="@Model.CompanyName">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <label>Contact Name:</label>
-                    <input type="text" class="form-control" placeholder="Contact Name">
+                    <label>Contact Name: @Html.ValidationMessage("ContactName")</label>
+                    <input name="ContactName" type="text" class="form-control" placeholder="Contact Name" value="@Model.ContactName">
                 </div>
                 <div class="col-sm-6">
                     <label>Contact Title:</label>
-                    <input type="text" class="form-control" placeholder="Ex: Sale Manager">
+                    <input name="ContactTitle" type="text" class="form-control" placeholder="Ex: Sale Manager" value="@Model.ContactTitle">
                 </div>
             </div>
             <div class="form-group">
                 <label>Address:</label>
-                <input type="text" class="form-control" placeholder="Address">
+                <input name="Address" type="text" class="form-control" placeholder="Address" value="@Model.Address">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label>Country:</label>
-                    <select class="form-control">
+                    <select class="form-control" name="Country">
                         <option value="">-- Choose Country --</option>
-                        <option value="USA">USA</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="CHINA">China</option>
-                        <option value="VN">Vietnam</option>
+                        @foreach (var country in SelectListHelper.Countries())
+                        {
+                            if (Model.Country == country.Value)
+                            {
+                                <option selected value="@country.Value">@country.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@country.Value">@country.Text</option>
+                            }
+                        }
                     </select>
                 </div>
                 <div class="col-sm-6">
                     <label>City:</label>
-                    <input type="text" class="form-control" placeholder="Ex: New Orleans">
+                    <input name="City" type="text" class="form-control" placeholder="Ex: New Orleans" value="@Model.City">
                 </div>
             </div>
             <div class="form-group row">
@@ -48,7 +57,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-phone"></i>
                         </div>
-                        <input type="text" class="form-control">
+                        <input name="Phone" type="text" class="form-control" value="@Model.Phone">
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -57,7 +66,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-fax"></i>
                         </div>
-                        <input type="text" class="form-control">
+                        <input name="Fax" type="text" class="form-control" value="@Model.Fax">
                     </div>
                 </div>
             </div>
@@ -67,8 +76,11 @@
                     <div class="input-group-addon">
                         <i class="fa fa-link"></i>
                     </div>
-                    <input type="text" class="form-control" placeholder="ex: http://company.com">
+                    <input name="HomePage" type="text" class="form-control" placeholder="ex: http://company.com" value="@Model.HomePage">
                 </div>
+            </div>
+            <div>
+                @*@Html.ValidationMessage("")*@
             </div>
         </div>
         <!-- /.box-body -->

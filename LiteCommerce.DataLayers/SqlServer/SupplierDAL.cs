@@ -17,7 +17,7 @@ namespace LiteCommerce.DataLayers.SqlServer
     {
         private string connectionString;
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="connectionString"></param>
         public SupplierDAL(string connectionString)
@@ -31,7 +31,55 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public int Add(Supplier data)
         {
-            throw new NotImplementedException();
+            int supplierId = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"INSERT INTO Suppliers
+                                          (
+	                                          CompanyName,
+	                                          ContactName,
+	                                          ContactTitle,
+	                                          Address,
+	                                          City,
+	                                          Country,
+	                                          Phone,
+	                                          Fax,
+	                                          HomePage
+                                          )
+                                          VALUES
+                                          (
+	                                          @CompanyName,
+	                                          @ContactName,
+	                                          @ContactTitle,
+	                                          @Address,
+	                                          @City,
+	                                          @Country,
+	                                          @Phone,
+	                                          @Fax,
+	                                          @HomePage
+                                          );
+                                          SELECT @@IDENTITY;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
+                cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
+                cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
+                cmd.Parameters.AddWithValue("@Address", data.Address);
+                cmd.Parameters.AddWithValue("@City", data.City);
+                cmd.Parameters.AddWithValue("@Country", data.Country);
+                cmd.Parameters.AddWithValue("@Phone", data.Phone);
+                cmd.Parameters.AddWithValue("@Fax", data.Fax);
+                cmd.Parameters.AddWithValue("@HomePage", data.HomePage);
+
+                supplierId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                connection.Close();
+            }
+
+            return supplierId;
         }
         /// <summary>
         /// 
@@ -68,7 +116,29 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public int Delete(int[] supplierIDs)
         {
-            throw new NotImplementedException();
+            int countDeleted = 0;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"DELETE FROM Suppliers
+                                            WHERE(SupplierID = @supplierId)
+                                              AND(SupplierID NOT IN(SELECT SupplierID FROM Products))";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.Add("@supplierId", SqlDbType.Int);
+                foreach (int supplierId in supplierIDs)
+                {
+                    cmd.Parameters["@supplierId"].Value = supplierId;
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                        countDeleted += 1;
+                }
+
+                connection.Close();
+            }
+            return countDeleted;
         }
         /// <summary>
         /// 
@@ -77,7 +147,40 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public Supplier Get(int supplierID)
         {
-            throw new NotImplementedException();
+            Supplier data = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"SELECT * FROM Suppliers WHERE SupplierID = @supplierID";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@supplierID", supplierID);
+
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dbReader.Read())
+                    {
+                        data = new Supplier()
+                        {
+                            SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
+                            CompanyName = Convert.ToString(dbReader["CompanyName"]),
+                            ContactName = Convert.ToString(dbReader["ContactName"]),
+                            ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
+                            Address = Convert.ToString(dbReader["Address"]),
+                            City = Convert.ToString(dbReader["City"]),
+                            Country = Convert.ToString(dbReader["Country"]),
+                            Phone = Convert.ToString(dbReader["Phone"]),
+                            Fax = Convert.ToString(dbReader["Fax"]),
+                            HomePage = Convert.ToString(dbReader["HomePage"])
+                        };
+                    }
+                }
+
+                connection.Close();
+            }
+            return data;
         }
         /// <summary>
         /// 
@@ -141,7 +244,42 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public bool Update(Supplier data)
         {
-            throw new NotImplementedException();
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"UPDATE Suppliers
+                                           SET CompanyName = @CompanyName 
+                                              ,ContactName = @ContactName
+                                              ,ContactTitle = @ContactTitle
+                                              ,Address = @Address
+                                              ,City = @City
+                                              ,Country = @Country
+                                              ,Phone = @Phone
+                                              ,Fax = @Fax
+                                              ,HomePage = @HomePage
+                                          WHERE SupplierID = @SupplierID";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@SupplierID", data.SupplierID);
+                cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
+                cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
+                cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
+                cmd.Parameters.AddWithValue("@Address", data.Address);
+                cmd.Parameters.AddWithValue("@City", data.City);
+                cmd.Parameters.AddWithValue("@Country", data.Country);
+                cmd.Parameters.AddWithValue("@Phone", data.Phone);
+                cmd.Parameters.AddWithValue("@Fax", data.Fax);
+                cmd.Parameters.AddWithValue("@HomePage", data.HomePage);
+
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                connection.Close();
+            }
+
+            return rowsAffected > 0;
         }
     }
 }

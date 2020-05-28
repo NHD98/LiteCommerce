@@ -8,15 +8,15 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {/// <summary>
-/// 
-/// </summary>
+ /// 
+ /// </summary>
+    [Authorize]
     public class CategoryController : Controller
     {
         // GET: Category
         /// <summary>
         /// 
         /// </summary>
-        [Authorize]
         public ActionResult Index(int page = 1, string searchValue = "")
         {
             int pageSize = 3;
@@ -34,17 +34,80 @@ namespace LiteCommerce.Admin.Controllers
 
             return View(model);
         }
+        [HttpGet]
         public ActionResult Input(string id = "")
         {
-            if (string.IsNullOrEmpty(id))
+            try
             {
-                ViewBag.Title = " Create new Category";
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewBag.Title = " Create new Category";
+                    Category newCategory = new Category()
+                    {
+                        CategoryID = 0
+                    };
+                    return View(newCategory);
+                }
+                else
+                {
+                    ViewBag.Title = "Edit a Category";
+                    Category editCategory = CatalogBLL.GetCategory(Convert.ToInt32(id));
+                    if (editCategory == null)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return View(editCategory);
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ViewBag.Title = "Edit a Category";
+                return Content(ex.Message + ": " + ex.StackTrace);
             }
-            return View();
+        }
+
+        public ActionResult Input(Category model)
+        {
+            try
+            {
+                //TODO: Kiểm tra tính hợp lệ của dữ liệu được nhập
+                if (string.IsNullOrEmpty(model.CategoryName))
+                {
+                    ModelState.AddModelError("CategoryName", "Category Name is invalid");
+                }
+                if (string.IsNullOrEmpty(model.Description))
+                {
+                    ModelState.AddModelError("Description", "Description is invalid");
+                }
+
+                //TODO: Lưu dữ liệu vào DB
+                if (model.CategoryID == 0)
+                {
+                    CatalogBLL.AddCategory(model);
+                }
+                else
+                {
+                    CatalogBLL.UpdateCategory(model);
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message + ": " + ex.StackTrace);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int[] categoryIDs = null)
+        {
+            if (categoryIDs != null)
+            {
+                CatalogBLL.DeleteCategories(categoryIDs);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

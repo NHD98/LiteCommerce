@@ -22,7 +22,7 @@ namespace LiteCommerce.Admin.Controllers
         {
             int pageSize = 3;
             int rowCount = 0;
-            List<Employee> listOfEmployee = CatalogBLL.ListOfEmployees(page, pageSize, searchValue, out rowCount);
+            List<Employee> listOfEmployee = EmployeeBLL.ListOfEmployees(page, pageSize, searchValue, out rowCount);
 
             var model = new Models.EmployeePaginationResult()
             {
