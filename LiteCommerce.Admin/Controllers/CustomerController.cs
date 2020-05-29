@@ -61,7 +61,7 @@ namespace LiteCommerce.Admin.Controllers
             try
             {
                 // kiểm tra dữ liệu vào
-                if (string.IsNullOrEmpty(model.CustomerID))
+                if (string.IsNullOrEmpty(model.CustomerID) || model.CustomerID.Length != 5)
                 {
                     ModelState.AddModelError("CustomerID", "CustomerID is invalid");
                 }

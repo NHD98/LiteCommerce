@@ -20,5 +20,18 @@ namespace LiteCommerce.Admin
             list.Add(new SelectListItem() { Value = "VN", Text = "Vietnam" });
             return list;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<SelectListItem> Titles()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { Value = "Sales Representative", Text = "Sales Representative" });
+            list.Add(new SelectListItem() { Value = "Vice President, Sales", Text = "Vice President, Sales" });
+            list.Add(new SelectListItem() { Value = "Sales Manager", Text = "Sales Manager" });
+            list.Add(new SelectListItem() { Value = "Inside Sales Coordinator", Text = "Inside Sales Coordinator" });
+            return list;
+        }
     }
 }

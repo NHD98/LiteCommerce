@@ -39,5 +39,33 @@ namespace LiteCommerce.BusinessLayers
             rowCount = EmployeeDB.Count(searchValue);
             return EmployeeDB.List(page, pageSize, searchValue);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <returns></returns>
+        public static Employee GetEmployee(int employeeID)
+        {
+            return EmployeeDB.Get(employeeID);
+        }
+
+        public static bool UpdateEmployee(Employee employee)
+        {
+            return EmployeeDB.Update(employee);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public static int AddEmployee(Employee employee)
+        {
+            return EmployeeDB.Add(employee);
+        }
+
+        public static int DeleteEmployee(int[] employeeIDs)
+        {
+            return EmployeeDB.Delete(employeeIDs);
+        }
     }
 }

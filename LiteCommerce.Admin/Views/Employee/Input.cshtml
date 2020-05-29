@@ -1,37 +1,48 @@
-﻿@{
+﻿@model LiteCommerce.DomainModels.Employee
+@{
 }
 <div class="box box-primary">
-    <form role="form">
+    <form role="form" action="~/Employee/Input" method="post">
         <div class="box-header text-right">
             <a href="~/Employee">Back to List</a>
         </div>
         <div class="box-body">
+            <input name="EmployeeID" value="@Model.EmployeeID" type="hidden" />
             <div class="form-group row">
                 <div class="col-sm-4">
                     <div class="pull-left image">
-                        <img src="~/Themes/AdminLTE/dist/img/user2-160x160.jpg" height="100px" width="100px" class="img-circle" alt="User Image">
+                        <img src="~/@Model.PhotoPath" height="100px" width="100px" class="img-circle" alt="User Image">
                     </div>
                     <div>
-                        <label style="margin-left: 10px; color:#555; "> <input type="file" id="exampleInputFile"></label>
+                        <label style="margin-left: 10px; color:#555; "> <input type="file" id="exampleInputFile" name="PhotoPath" value="@Model.PhotoPath"></label>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-4">
                     <label>FristName:</label>
-                    <input type="text" class="form-control" placeholder="First Name">
+                    <input type="text" class="form-control" placeholder="First Name" name="FirstName" value="@Model.FirstName">
                 </div>
                 <div class="col-sm-4">
                     <label>LastName:</label>
-                    <input type="text" class="form-control" placeholder="Last Name">
+                    <input type="text" class="form-control" placeholder="Last Name" name="LastName" value="@Model.LastName">
                 </div>
                 <div class="col-sm-4">
                     <label>Title:</label>
-                    <select class="form-control">
+                    <select class="form-control" name="Title">
                         <option value="">-- Choose Title --</option>
-                        <option value="Sales Representative">Sales Representative</option>
-                        <option value="Vice President, Sales">Vice President, Sales</option>
-                        <option value="Inside Sales Coordinator">Inside Sales Coordinator</option>
+                        @foreach (var title in SelectListHelper.Titles())
+                        {
+                            if (Model.Title == title.Value)
+                            {
+                                <option selected value="@title.Value">@title.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@title.Value">@title.Text</option>
+                            }
+
+                        }
                     </select>
                 </div>
             </div>
@@ -42,7 +53,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                        <input type="text" class="form-control" name="BirthDate" value="@(string.Format("{0:yyyy/MM/dd}", Model.BirthDate))" placeholder="yyyy/MM/dd" />
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -51,28 +62,64 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                        <input type="text" class="form-control" name="HireDate" value="@(string.Format("{0:yyyy/MM/dd}", Model.HireDate))" placeholder="yyyy/MM/dd">
                     </div>
                 </div>
             </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Email:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <input type="text" class="form-control" name="Email" value="@Model.Email">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label>HomePhone:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input type="text" class="form-control" name="HomePhone" value="@Model.HomePhone">
+                    </div>
+                </div>
+            </div>
+            @*<div class="form-group">
+                <label>Password:</label>
+                <input type="text" class="form-control" placeholder="Password" name="Password" value="@Model.Password">
+            </div>*@
+
             <div class="form-group">
                 <label>Address:</label>
-                <input type="text" class="form-control" placeholder="Address">
+                <input type="text" class="form-control" placeholder="Address" name="Address" value="@Model.Address">
             </div>
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label>Country:</label>
-                    <select class="form-control">
+                    <select class="form-control" name="Country">
                         <option value="">-- Choose Country --</option>
-                        <option value="USA">USA</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="CHINA">China</option>
-                        <option value="VN">Vietnam</option>
+                        @foreach (var country in SelectListHelper.Countries())
+                        {
+                            {
+                                if (Model.Country == country.Value)
+                                {
+                                    <option selected value="@country.Value">@country.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@country.Value">@country.Text</option>
+                                }
+
+                            }
+                        }
                     </select>
                 </div>
                 <div class="col-sm-6">
                     <label>City:</label>
-                    <input type="text" class="form-control" placeholder="Ex: New Orleans">
+                    <input type="text" class="form-control" placeholder="Ex: New Orleans" name="City" value="@Model.City">
                 </div>
             </div>
             <div class="form-group row">
@@ -82,23 +129,14 @@
                         <div class="input-group-addon">
                             <i class="fa fa-phone"></i>
                         </div>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <label>Fax:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-fax"></i>
-                        </div>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" name="Phone" value="@Model.HomePhone" />
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <label>Note:</label>
-                    <textarea class="form-control" rows="4" name="note"></textarea>
+                    <textarea class="form-control" rows="4" name="Notes">@Model.Notes</textarea>
                 </div>
             </div>
         </div>
