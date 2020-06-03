@@ -18,6 +18,8 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/Themes/AdminLTE/dist/css/skins/_all-skins.min.css">
 
+    <script src="~/Codes/Actions.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,10 +33,10 @@
     <!-- Site wrapper -->
     <div class="wrapper">
 
-      @{ Html.RenderPartial("_Header");}
+        @{ Html.RenderPartial("_Header");}
         <!-- =============================================== -->
         <!-- Left side column. contains the sidebar -->
-       @{ Html.RenderPartial("_MainSideBar");}
+        @{ Html.RenderPartial("_MainSideBar");}
         <!-- =============================================== -->
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -54,7 +56,7 @@
         </div>
         <!-- /.content-wrapper -->
 
-       @{ Html.RenderPartial("_Footer");}
+        @{ Html.RenderPartial("_Footer");}
         <!-- Control Sidebar -->
         @{ Html.RenderPartial("_ControlSideBar");}
         <!-- /.control-sidebar -->
@@ -76,9 +78,9 @@
     <!-- AdminLTE for demo purposes -->
     <script src="~/Themes/AdminLTE/dist/js/demo.js"></script>
     <script>
-  $(document).ready(function () {
-    $('.sidebar-menu').tree()
-  })
+        $(document).ready(function () {
+            $('.sidebar-menu').tree()
+        })
     </script>
 </body>
 </html>

@@ -35,7 +35,7 @@
                 <thead>
                     <tr>
                         <th style="width:30px">
-                            <input type="checkbox" />
+                            <input type="checkbox" onchange="selectAll(event)" />
                         </th>
                         <th style="width:50px">#</th>
                         <th style="width: 240px">Name</th>
@@ -96,8 +96,8 @@
             {
                 int prePage = currentPage - 1;
                 <li><a href="~/Employee?searchValue=@Model.SearchValue&page=1">‹‹</a></li>
-                <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
-                <li><a href="#">...</a></li>
+                    <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
+                    <li><a href="#">...</a></li>
             }
             int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
             for (int page = startPage; page <= currentPage; page++)
@@ -129,10 +129,10 @@
             {
                 int nextPage = currentPage + 1;
                 <li><a href="#">...</a></li>
-                <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
-                <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
+                    <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
+                    <li><a href="~/Employee?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
             }
         }
     </ul>
 </div>
-</div>
+    </div>

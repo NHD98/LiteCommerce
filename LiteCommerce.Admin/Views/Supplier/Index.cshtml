@@ -35,7 +35,7 @@
                 <thead>
                     <tr>
                         <th style="width:30px">
-                            <input type="checkbox" />
+                            <input type="checkbox" onchange="selectAll(event)" />
                         </th>
                         <th style="width:50px">#</th>
                         <th style="width:auto">Name</th>
@@ -51,7 +51,7 @@
                             <td>
                                 <input name="supplierIDs" value="@supplier.SupplierID" type="checkbox" />
                             </td>
-                            <td>@(++i + (Model.Page - 1)*Model.PageSize)</td>
+                            <td>@(++i + (Model.Page - 1) * Model.PageSize)</td>
                             <td>
                                 <p style="color:#0094ff; font-weight:bold; display:block">
                                     @supplier.CompanyName
