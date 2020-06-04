@@ -2,6 +2,7 @@
 using LiteCommerce.DomainModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -78,7 +79,7 @@ namespace LiteCommerce.Admin.Controllers
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
-        public ActionResult Input(Employee model)
+        public ActionResult Input(Employee model, HttpPostedFileBase uploadFile)
         {
             try
             {
@@ -129,11 +130,22 @@ namespace LiteCommerce.Admin.Controllers
                 }
                 if (string.IsNullOrEmpty(model.PhotoPath))
                 {
-                    model.PhotoPath = EmployeeBLL.GetEmployee(model.EmployeeID).PhotoPath;
+                    Employee existEmployee = EmployeeBLL.GetEmployee(model.EmployeeID);
+                    model.PhotoPath = existEmployee != null ? existEmployee.PhotoPath : "";
                 }
                 if (string.IsNullOrEmpty(model.Password))
                 {
                     model.Password = "";
+                }
+
+                //TODO: Upload ảnh  
+                if (uploadFile != null)
+                {
+                    string _FileName = Path.GetFileName(uploadFile.FileName);
+                    _FileName = DateTime.Now.Ticks.ToString() + Path.GetExtension(_FileName);
+                    string _path = Path.Combine(Server.MapPath("~/Uploads/Images"), _FileName);
+                    uploadFile.SaveAs(_path);
+                    model.PhotoPath = _FileName;
                 }
 
                 //TODO: Lưu dữ liệu vào DB

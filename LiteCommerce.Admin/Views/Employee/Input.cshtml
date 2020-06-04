@@ -2,7 +2,7 @@
 @{
 }
 <div class="box box-primary">
-    <form role="form" action="~/Employee/Input" method="post">
+    <form role="form" action="~/Employee/Input" method="post" enctype="multipart/form-data">
         <div class="box-header text-right">
             <a href="~/Employee">Back to List</a>
         </div>
@@ -11,10 +11,10 @@
             <div class="form-group row">
                 <div class="col-sm-4">
                     <div class="pull-left image">
-                        <img src="~/@Model.PhotoPath" height="100px" width="100px" class="img-circle" alt="User Image">
+                        <img src="~/Uploads/Images/@Model.PhotoPath" height="100px" width="100px" class="img-circle" alt="User Image">
                     </div>
                     <div>
-                        <label style="margin-left: 10px; color:#555; "> <input type="file" id="exampleInputFile" name="PhotoPath" value="@Model.PhotoPath"></label>
+                        <label style="margin-left: 10px; color:#555; "> <input type="file" id="exampleInputFile" name="uploadFile" value="@Model.PhotoPath"></label>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" name="BirthDate" value="@(string.Format("{0:yyyy/MM/dd}", Model.BirthDate))" placeholder="yyyy/MM/dd" />
+                        <input type="date" class="form-control" name="BirthDate" value="@(string.Format("{0:yyyy-MM-dd}", Model.BirthDate))" placeholder="yyyy/MM/dd" />
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -62,7 +62,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" name="HireDate" value="@(string.Format("{0:yyyy/MM/dd}", Model.HireDate))" placeholder="yyyy/MM/dd">
+                        <input type="date" class="form-control" name="HireDate" value="@(string.Format("{0:yyyy-MM-dd}", Model.HireDate))" placeholder="yyyy/MM/dd">
                     </div>
                 </div>
             </div>
@@ -88,9 +88,9 @@
                 </div>
             </div>
             @*<div class="form-group">
-                <label>Password:</label>
-                <input type="text" class="form-control" placeholder="Password" name="Password" value="@Model.Password">
-            </div>*@
+                    <label>Password:</label>
+                    <input type="text" class="form-control" placeholder="Password" name="Password" value="@Model.Password">
+                </div>*@
 
             <div class="form-group">
                 <label>Address:</label>

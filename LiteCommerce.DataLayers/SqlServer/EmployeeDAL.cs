@@ -54,7 +54,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 cmd.Parameters.AddWithValue("@HomePhone", data.HomePhone);
                 cmd.Parameters.AddWithValue("@Notes", data.Notes);
                 cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
-                cmd.Parameters.AddWithValue("@Password", data.LastName);
+                cmd.Parameters.AddWithValue("@Password", data.Password);
 
                 EmployeeId = Convert.ToInt32(cmd.ExecuteScalar());
 
