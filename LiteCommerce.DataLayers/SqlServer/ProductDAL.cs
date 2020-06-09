@@ -229,7 +229,38 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public bool Update(Product data)
         {
-            throw new NotImplementedException();
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"UPDATE Products
+                                           SET ProductName = @ProductName 
+                                              ,SupplierID = @SupplierID
+                                              ,CategoryID = @CategoryID
+                                              ,QuantityPerUnit = @QuantityPerUnit
+                                              ,UnitPrice = @UnitPrice
+                                              ,Descriptions = @Descriptions
+                                              ,PhotoPath = @PhotoPath
+                                          WHERE ProductID = @ProductID";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@ProductID", data.ProductID);
+                cmd.Parameters.AddWithValue("@ProductName", data.ProductName);
+                cmd.Parameters.AddWithValue("@SupplierID", data.SupplierID);
+                cmd.Parameters.AddWithValue("@CategoryID", data.CategoryID);
+                cmd.Parameters.AddWithValue("@QuantityPerUnit", data.QuantityPerUnit);
+                cmd.Parameters.AddWithValue("@UnitPrice", data.UnitPrice);
+                cmd.Parameters.AddWithValue("@Descriptions", data.Description);
+                cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
+
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                connection.Close();
+            }
+
+            return rowsAffected > 0;
         }
     }
 }

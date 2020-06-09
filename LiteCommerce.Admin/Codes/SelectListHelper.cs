@@ -67,5 +67,23 @@ namespace LiteCommerce.Admin
 
             return list;
         }
+
+        public static List<ProductAttribute> Attributes(int productID)
+        {
+            if (productID > 0)
+            {
+                return CatalogBLL.GetProductAttributes(productID);
+            }
+            else
+            {
+                List<ProductAttribute> list = new List<ProductAttribute>();
+                List<DomainModels.Attribute> atts = CatalogBLL.GetAttributes();
+                foreach (DomainModels.Attribute att in atts)
+                {
+                    list.Add(new ProductAttribute() { AttributeID = att.AttributeID, AttributeName = att.AttributeName, AttributeValues = "", DisplayOrder = 1, ProductID = 0 });
+                }
+                return list;
+            }
+        }
     }
 }

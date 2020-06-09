@@ -15,9 +15,23 @@ namespace LiteCommerce.DataLayers
         /// <param name="attribute"></param>
         /// <returns></returns>
         int Add(List<ProductAttribute> attributes);
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
         int Update(List<ProductAttribute> attributes);
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productIDs"></param>
+        /// <returns></returns>
         int Delete(int[] productIDs);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        List<ProductAttribute> Get(int productID);
     }
 }

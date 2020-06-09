@@ -1,4 +1,5 @@
 ﻿using LiteCommerce.DataLayers;
+using LiteCommerce.DataLayers.SqlServer;
 using LiteCommerce.DomainModels;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,13 @@ namespace LiteCommerce.BusinessLayers
     {
         public static void Initialize(string connectionString)
         {
-            SupplierDB = new DataLayers.SqlServer.SupplierDAL(connectionString);
-            CustomerDB = new DataLayers.SqlServer.CustomerDAL(connectionString);
-            ShipperDB = new DataLayers.SqlServer.ShipperDAL(connectionString);
-            CategoryDB = new DataLayers.SqlServer.CategoryDAL(connectionString);
-            ProductDB = new DataLayers.SqlServer.ProductDAL(connectionString);
-            ProductAttributeDB = new DataLayers.SqlServer.ProductAttributeDAL(connectionString);
+            SupplierDB = new SupplierDAL(connectionString);
+            CustomerDB = new CustomerDAL(connectionString);
+            ShipperDB = new ShipperDAL(connectionString);
+            CategoryDB = new CategoryDAL(connectionString);
+            ProductDB = new ProductDAL(connectionString);
+            ProductAttributeDB = new ProductAttributeDAL(connectionString);
+            AttributeDB = new AttributeDAL(connectionString);
         }
         #region Khai báo các thuộc tính giao tiếp với DAL
         /// <summary>
@@ -33,6 +35,7 @@ namespace LiteCommerce.BusinessLayers
         private static ICategoryDAL CategoryDB { get; set; }
         private static IProductDAL ProductDB { get; set; }
         private static IProductAttributeDAL ProductAttributeDB { get; set; }
+        private static IAttributeDAL AttributeDB { get; set; }
         #endregion
 
         #region Khai báo các chức năng xử lý nghiệp vụ
@@ -291,7 +294,7 @@ namespace LiteCommerce.BusinessLayers
         /// <returns></returns>
         public static bool UpdateProduct(Product product)
         {
-            return false;
+            return ProductDB.Update(product);
         }
         /// <summary>
         /// 
@@ -320,6 +323,23 @@ namespace LiteCommerce.BusinessLayers
         public static int UpdateProductAttribute(List<ProductAttribute> attributes)
         {
             return ProductAttributeDB.Update(attributes);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public static List<ProductAttribute> GetProductAttributes(int productID)
+        {
+            return ProductAttributeDB.Get(productID);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<DomainModels.Attribute> GetAttributes()
+        {
+            return AttributeDB.List();
         }
         #endregion
     }
