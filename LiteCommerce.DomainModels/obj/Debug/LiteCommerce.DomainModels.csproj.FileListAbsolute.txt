@@ -2,3 +2,4 @@ C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.D
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DomainModels\bin\Debug\LiteCommerce.DomainModels.pdb
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DomainModels\obj\Debug\LiteCommerce.DomainModels.dll
 C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DomainModels\obj\Debug\LiteCommerce.DomainModels.pdb
+C:\Users\Admin\Documents\Visual Studio 2015\Projects\LiteCommerce\LiteCommerce.DomainModels\obj\Debug\LiteCommerce.DomainModels.csprojResolveAssemblyReference.cache

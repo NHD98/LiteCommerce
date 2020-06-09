@@ -20,6 +20,8 @@ namespace LiteCommerce.BusinessLayers
             CustomerDB = new DataLayers.SqlServer.CustomerDAL(connectionString);
             ShipperDB = new DataLayers.SqlServer.ShipperDAL(connectionString);
             CategoryDB = new DataLayers.SqlServer.CategoryDAL(connectionString);
+            ProductDB = new DataLayers.SqlServer.ProductDAL(connectionString);
+            ProductAttributeDB = new DataLayers.SqlServer.ProductAttributeDAL(connectionString);
         }
         #region Khai báo các thuộc tính giao tiếp với DAL
         /// <summary>
@@ -29,6 +31,8 @@ namespace LiteCommerce.BusinessLayers
         private static ICustomerDAL CustomerDB { get; set; }
         private static IShipperDAL ShipperDB { get; set; }
         private static ICategoryDAL CategoryDB { get; set; }
+        private static IProductDAL ProductDB { get; set; }
+        private static IProductAttributeDAL ProductAttributeDB { get; set; }
         #endregion
 
         #region Khai báo các chức năng xử lý nghiệp vụ
@@ -44,10 +48,15 @@ namespace LiteCommerce.BusinessLayers
         {
             if (page < 1)
                 page = 1;
-            if (pageSize <= 0)
-                pageSize = 20;
+            //if (pageSize <= 0)
+            //    pageSize = 20;
             rowCount = SupplierDB.Count(searchValue);
             return SupplierDB.List(page, pageSize, searchValue);
+        }
+
+        public static List<Supplier> ListOfAllSuppliers()
+        {
+            return SupplierDB.ListAll();
         }
         /// <summary>
         /// Lấy thông tin của 1 supplier dựa vào ID
@@ -199,10 +208,10 @@ namespace LiteCommerce.BusinessLayers
         {
             if (page < 1)
                 page = 1;
-            if (pageSize < 0)
-            {
-                pageSize = 20;
-            }
+            //if (pageSize <= 0)
+            //{
+            //    pageSize = 20;
+            //}
             rowCount = CategoryDB.Count(searchValue);
             return CategoryDB.List(page, pageSize, searchValue);
         }
@@ -241,6 +250,76 @@ namespace LiteCommerce.BusinessLayers
         public static int DeleteCategories(int[] categoryIDs)
         {
             return CategoryDB.Delete(categoryIDs);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <param name="categoryID"></param>
+        /// <param name="supplierID"></param>
+        /// <param name="rowCount"></param>
+        /// <returns></returns>
+        public static List<Product> ListOfProduct(int page, int pageSize, string searchValue, int categoryID, int supplierID, out int rowCount)
+        {
+            rowCount = ProductDB.Count(searchValue, supplierID, categoryID);
+            return ProductDB.List(page, pageSize, searchValue, categoryID, supplierID);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public static Product GetProduct(int productID)
+        {
+            return ProductDB.Get(productID);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public static int AddProduct(Product product)
+        {
+            return ProductDB.Add(product);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public static bool UpdateProduct(Product product)
+        {
+            return false;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productIDs"></param>
+        /// <returns></returns>
+        public static int DeleteProduct(int[] productIDs)
+        {
+            ProductAttributeDB.Delete(productIDs);
+            return ProductDB.Delete(productIDs);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attribute"></param>
+        /// <returns></returns>
+        public static int AddProductAttribute(List<ProductAttribute> attributes)
+        {
+            return ProductAttributeDB.Add(attributes);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
+        public static int UpdateProductAttribute(List<ProductAttribute> attributes)
+        {
+            return ProductAttributeDB.Update(attributes);
         }
         #endregion
     }

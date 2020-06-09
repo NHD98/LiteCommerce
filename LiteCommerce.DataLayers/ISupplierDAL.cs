@@ -16,6 +16,8 @@ namespace LiteCommerce.DataLayers
         /// <param name="searchValue">Từ khóa tìm kiếm</param>
         /// <returns></returns>
         List<Supplier> List(int page, int pageSize, string searchValue);
+
+        List<Supplier> ListAll();
         /// <summary>
         /// Đếm số lượng tìm kiếm được
         /// </summary>

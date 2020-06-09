@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiteCommerce.BusinessLayers;
+using LiteCommerce.DomainModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -31,6 +33,38 @@ namespace LiteCommerce.Admin
             list.Add(new SelectListItem() { Value = "Vice President, Sales", Text = "Vice President, Sales" });
             list.Add(new SelectListItem() { Value = "Sales Manager", Text = "Sales Manager" });
             list.Add(new SelectListItem() { Value = "Inside Sales Coordinator", Text = "Inside Sales Coordinator" });
+            return list;
+        }
+
+        public static List<SelectListItem> Categories()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            int count;
+            CatalogBLL.ListOfCategories(1, -1, "", out count).ForEach(category =>
+            {
+                list.Add(new SelectListItem()
+                {
+                    Value = category.CategoryID.ToString(),
+                    Text = category.CategoryName
+                });
+            });
+
+            return list;
+        }
+
+        public static List<SelectListItem> Suppliers()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            int count;
+            CatalogBLL.ListOfSuppliers(1, -1, "", out count).ForEach(supplier =>
+            {
+                list.Add(new SelectListItem()
+                {
+                    Value = supplier.SupplierID.ToString(),
+                    Text = supplier.CompanyName
+                });
+            });
+
             return list;
         }
     }

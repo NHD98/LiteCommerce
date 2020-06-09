@@ -206,12 +206,50 @@ namespace LiteCommerce.DataLayers.SqlServer
 	                                    from Suppliers
 	                                    where (@searchValue = N'') or (CompanyName like @searchValue)
                                     ) as t
-                                    where t.RowNumber between @pageSize * (@page -  1) + 1 and @page * @pageSize";
+                                    where (@pageSize <= 0) or
+                                        (t.RowNumber between @pageSize * (@page -  1) + 1 and @page * @pageSize)";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@page", page);
                 cmd.Parameters.AddWithValue("@pageSize", pageSize);
                 cmd.Parameters.AddWithValue("@searchValue", searchValue);
+
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    while (dbReader.Read())
+                    {
+                        data.Add(new Supplier()
+                        {
+                            SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
+                            CompanyName = Convert.ToString(dbReader["CompanyName"]),
+                            ContactName = Convert.ToString(dbReader["ContactName"]),
+                            ContactTitle = Convert.ToString(dbReader["ContactTitle"]),
+                            Address = Convert.ToString(dbReader["Address"]),
+                            City = Convert.ToString(dbReader["City"]),
+                            Country = Convert.ToString(dbReader["Country"]),
+                            Phone = Convert.ToString(dbReader["Phone"]),
+                            Fax = Convert.ToString(dbReader["Fax"]),
+                            HomePage = Convert.ToString(dbReader["HomePage"])
+                        });
+                    }
+                }
+
+                connection.Close();
+            }
+            return data;
+        }
+
+        public List<Supplier> ListAll()
+        {
+            List<Supplier> data = new List<Supplier>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                // Tạo lệnh thực thi truy vấn dữ liệu
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"select * from Suppliers";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
 
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {

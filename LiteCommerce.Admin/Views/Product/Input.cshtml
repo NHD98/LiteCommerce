@@ -1,50 +1,114 @@
-﻿
+﻿@model LiteCommerce.DomainModels.Product
 @{
 }
 
 <div class="box box-primary">
-    <form role="form">
+    <form role="form" action="~/Product/Input" method="post" enctype="multipart/form-data">
         <div class="box-header text-right">
             <a href="~/Product">Back to List</a>
         </div>
         <div class="box-body">
-            <div class="form-group">
-                <label>Product Name:</label>
-                <input type="text" class="form-control" placeholder="Enter Product Name">
+            <input type="hidden" name="ProductID" value="@Model.ProductID" />
+            <div>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <img src="~/Uploads/Images/@Model.PhotoPath" height="100px" width="100px" class="img-circle" alt="Product Image">
+                        <input type="file" name="uploadFile" />
+                    </div>
+                    <div class="col-sm-9">
+                        <label>Product Name: @Html.ValidationMessage("ProductName")</label>
+                        <input type="text" class="form-control" placeholder="Enter Product Name" name="ProductName" value="@Model.ProductName">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label>Supplier: @Html.ValidationMessage("SupplierID")</label>
+                        <select class="form-control" name="SupplierID">
+                            <option value="">--Choose Supplier--</option>
+                            @{
+                                foreach (var supplier in SelectListHelper.Suppliers())
+                                {
+                                    if (Model.SupplierID == Convert.ToInt32(supplier.Value))
+                                    {
+                                        <option selected value="@supplier.Value">@supplier.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@supplier.Value">@supplier.Text</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Category: @Html.ValidationMessage("CategoryID")</label>
+                        <select class="form-control" name="CategoryID">
+                            <option value="0">--Choose Category--</option>
+                            @{
+                                foreach (var category in SelectListHelper.Categories())
+                                {
+                                    if (Model.CategoryID == Convert.ToInt32(category.Value))
+                                    {
+                                        <option selected value="@category.Value">@category.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@category.Value">@category.Text</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label>Quantity Per Unit: @Html.ValidationMessage("QuantityPerUnit")</label>
+                        <input type="text" class="form-control" placeholder="Quantity Per Unit" name="QuantityPerUnit" value="@Model.QuantityPerUnit">
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Unit Price: @Html.ValidationMessage("UnitPrice")</label>
+                        <input type="text" class="form-control" placeholder="Unit Price" name="UnitPrice" value="@Model.UnitPrice">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description (Optional):</label>
+                    <textarea type="text" class="form-control" name="Description" rows="5">@Model.Description</textarea>
+                </div>
             </div>
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <label>Supplier:</label>
-                    <select class="form-control">
-                        <option value="">-- Choose Supplier --</option>
-                        <option value="New Orleans Cajun Delights">New Orleans Cajun Delights</option>
-                        <option value="Grandma Kelly's Homestead">Grandma Kelly's Homestead</option>
-                        <option value="Tokyo Traders">Tokyo Traders</option>
-                    </select>
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Attributes (Optional)</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label>Category:</label>
-                    <select class="form-control">
-                        <option value="">-- Choose Category --</option>
-                        <option value="Beverages">Beverages</option>
-                        <option value="Condiments">Condiments</option>
-                        <option value="Confections">Confections</option>
-                    </select>
+                <!-- /.box-body -->
+                <div class="box-body">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>Size:</label>
+                            <input name="attributes" type="text" class="form-control" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Color: </label>
+                            <input name="attributes" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>Material: </label>
+                            <input name="attributes" type="text" class="form-control" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Origin: </label>
+                            <input name="attributes" type="text" class="form-control" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-6">
-                    <label>Quantity Per Unit:</label>
-                    <input type="text" class="form-control" placeholder="Quantity Per Unit">
-                </div>
-                <div class="col-sm-6">
-                    <label>Unit Price:</label>
-                    <input type="text" class="form-control" placeholder="Unit Price">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Description:</label>
-                <textarea type="text" class="form-control"></textarea>
             </div>
         </div>
         <!-- /.box-body -->
@@ -58,4 +122,3 @@
         </div>
     </form>
 </div>
-
