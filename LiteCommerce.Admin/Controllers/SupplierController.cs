@@ -117,16 +117,19 @@ namespace LiteCommerce.Admin.Controllers
                     model.HomePage = "";
                 }
 
-                //TODO: Lưu dữ liệu vào DB
-                if (model.SupplierID == 0)
+                if (ModelState.IsValid)
                 {
-                    CatalogBLL.AddSupplier(model);
+                    //TODO: Lưu dữ liệu vào DB
+                    if (model.SupplierID == 0)
+                    {
+                        CatalogBLL.AddSupplier(model);
+                    }
+                    else
+                    {
+                        CatalogBLL.UpdateSupplier(model);
+                    }
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    CatalogBLL.UpdateSupplier(model);
-                }
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

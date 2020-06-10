@@ -102,7 +102,14 @@ namespace LiteCommerce.Admin.Controllers
                 }
                 if (model.HireDate == null)
                 {
-                    model.HireDate = Convert.ToDateTime("1800/01/01");
+                    model.HireDate = Convert.ToDateTime("1818/01/01");
+                }
+                else
+                {
+                    if (model.HireDate.Year - model.BirthDate.Year < 18)
+                    {
+                        ModelState.AddModelError("HireDate", "Employee must be at least 18 years old");
+                    }
                 }
                 if (string.IsNullOrEmpty(model.Email))
                 {
@@ -148,16 +155,23 @@ namespace LiteCommerce.Admin.Controllers
                     model.PhotoPath = _FileName;
                 }
 
-                //TODO: Lưu dữ liệu vào DB
-                if (model.EmployeeID == 0)
+                if (ModelState.IsValid)
                 {
-                    EmployeeBLL.AddEmployee(model);
+                    //TODO: Lưu dữ liệu vào DB
+                    if (model.EmployeeID == 0)
+                    {
+                        EmployeeBLL.AddEmployee(model);
+                    }
+                    else
+                    {
+                        EmployeeBLL.UpdateEmployee(model);
+                    }
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    EmployeeBLL.UpdateEmployee(model);
+                    return View(model);
                 }
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

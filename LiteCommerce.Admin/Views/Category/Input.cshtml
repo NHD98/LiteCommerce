@@ -9,12 +9,12 @@
         <div class="box-body">
             <input name="CategoryID" value="@Model.CategoryID" type="hidden" />
             <div class="form-group">
-                <label>Category Name:</label>
+                <label>Category Name: @Html.ValidationMessage("CategoryName")</label>
                 <input type="text" class="form-control" placeholder="Enter Category Name" name="CategoryName" value="@Model.CategoryName">
             </div>
             <div class="form-group row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
-                    <label>Description:</label>
+                    <label>Description: @Html.ValidationMessage("Description")</label>
                     <textarea class="form-control" rows="4" name="Description">@Model.Description</textarea>
                 </div>
             </div>

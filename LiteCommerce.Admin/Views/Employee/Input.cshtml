@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label>HireDay:</label>
+                    <label>HireDay: @Html.ValidationMessage("HireDate")</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
@@ -104,7 +104,7 @@
                         @foreach (var country in SelectListHelper.Countries())
                         {
                             {
-                                if (Model.Country == country.Value)
+                                if (Model.Country == country.Value || Model.Country == country.Text)
                                 {
                                     <option selected value="@country.Value">@country.Text</option>
                                 }

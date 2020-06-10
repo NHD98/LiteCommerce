@@ -34,7 +34,7 @@
                         <option value="">-- Choose Country --</option>
                         @foreach (var country in SelectListHelper.Countries())
                         {
-                            if (Model.Country == country.Value)
+                            if (Model.Country == country.Value || Model.Country == country.Text)
                             {
                                 <option selected value="@country.Value">@country.Text</option>
                             }

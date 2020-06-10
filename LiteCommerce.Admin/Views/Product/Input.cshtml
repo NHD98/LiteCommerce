@@ -88,30 +88,42 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-body">
-                    @{
-                        List<LiteCommerce.DomainModels.ProductAttribute> attributes = SelectListHelper.Attributes(Model.ProductID);
-                        for (int i = 0; i < attributes.Count; i += 2)
-                        {
-                            LiteCommerce.DomainModels.ProductAttribute att1 = attributes.ElementAt(i);
-                            LiteCommerce.DomainModels.ProductAttribute att2 = attributes.ElementAt(i + 1);
-                            <div class="form-group row">
-                                @if (att1 != null)
+                    <div class="form-group row">
+                        @{
+                            List<LiteCommerce.DomainModels.ProductAttribute> attributes = SelectListHelper.Attributes(Model.ProductID);
+                            for (int i = 0; i < attributes.Count; i++)
+                            {
+                                LiteCommerce.DomainModels.ProductAttribute att = attributes.ElementAt(i);
+                                if (att.AttributeName == "Origin")
                                 {
                                     <div class="col-sm-6">
-                                        <label>@att1.AttributeName:</label>
-                                        <input name="attributes" type="text" class="form-control" value="@att1.AttributeValues" />
+                                        <label>@att.AttributeName:</label>
+                                        <select class="form-control" name="attributes">
+                                            <option value="">-- Choose Country --</option>
+                                            @foreach (var country in SelectListHelper.Countries())
+                                            {
+                                                if (att.AttributeValues == country.Value || att.AttributeValues == country.Text)
+                                                {
+                                                    <option selected value="@country.Value">@country.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@country.Value">@country.Text</option>
+                                                }
+                                            }
+                                        </select>
                                     </div>
                                 }
-                                @if (att2 != null)
+                                else
                                 {
                                     <div class="col-sm-6">
-                                        <label>@att2.AttributeName:</label>
-                                        <input name="attributes" type="text" class="form-control" value="@att2.AttributeValues" />
+                                        <label>@att.AttributeName:</label>
+                                        <input name="attributes" type="text" class="form-control" value="@att.AttributeValues" />
                                     </div>
                                 }
-                            </div>
+                            }
                         }
-                    }
+                    </div>
                 </div>
             </div>
         </div>

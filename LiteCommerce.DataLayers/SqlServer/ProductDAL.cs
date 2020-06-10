@@ -185,7 +185,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 cmd.CommandText = @"select * from (
 	                                select ROW_NUMBER() over(order by ProductName) as RowNumber, Products.*, Categories.CategoryName, Suppliers.CompanyName as 'SupplierName'
 	                                from Products join Suppliers on Products.SupplierID = Suppliers.SupplierID join Categories on Categories.CategoryID = Products.CategoryID
-	                                where (('' = N'') or (ProductName like '') )
+	                                where ((@searchValue = N'') or (ProductName like @searchValue) )
 	                                   and ((Products.SupplierID = @SupplierID) or (@SupplierID <= 0))
 	                                   and ((Products.CategoryID = @categoryID) or (@categoryID <= 0))
 	                                   ) as t

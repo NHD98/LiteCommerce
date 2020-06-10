@@ -24,6 +24,7 @@ namespace LiteCommerce.BusinessLayers
             ProductDB = new ProductDAL(connectionString);
             ProductAttributeDB = new ProductAttributeDAL(connectionString);
             AttributeDB = new AttributeDAL(connectionString);
+            CountryDB = new CountryDAL(connectionString);
         }
         #region Khai báo các thuộc tính giao tiếp với DAL
         /// <summary>
@@ -36,6 +37,7 @@ namespace LiteCommerce.BusinessLayers
         private static IProductDAL ProductDB { get; set; }
         private static IProductAttributeDAL ProductAttributeDB { get; set; }
         private static IAttributeDAL AttributeDB { get; set; }
+        private static ICountryDAL CountryDB { get; set; }
         #endregion
 
         #region Khai báo các chức năng xử lý nghiệp vụ
@@ -340,6 +342,11 @@ namespace LiteCommerce.BusinessLayers
         public static List<DomainModels.Attribute> GetAttributes()
         {
             return AttributeDB.List();
+        }
+
+        public static List<Country> GetCountries()
+        {
+            return CountryDB.List();
         }
         #endregion
     }

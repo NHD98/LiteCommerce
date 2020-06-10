@@ -82,16 +82,19 @@ namespace LiteCommerce.Admin.Controllers
                     ModelState.AddModelError("Description", "Description is invalid");
                 }
 
-                //TODO: Lưu dữ liệu vào DB
-                if (model.CategoryID == 0)
+                if (ModelState.IsValid)
                 {
-                    CatalogBLL.AddCategory(model);
+                    //TODO: Lưu dữ liệu vào DB
+                    if (model.CategoryID == 0)
+                    {
+                        CatalogBLL.AddCategory(model);
+                    }
+                    else
+                    {
+                        CatalogBLL.UpdateCategory(model);
+                    }
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    CatalogBLL.UpdateCategory(model);
-                }
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

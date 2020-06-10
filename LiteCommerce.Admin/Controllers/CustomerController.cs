@@ -90,17 +90,20 @@ namespace LiteCommerce.Admin.Controllers
                     model.Address = "";
                 }
 
-                // Lưu dữ liệu vào DB
-                Customer existCustomer = CatalogBLL.GetCustomer(model.CustomerID);
-                if (existCustomer == null)
+                if (ModelState.IsValid)
                 {
-                    CatalogBLL.AddCustomer(model);
+                    // Lưu dữ liệu vào DB
+                    Customer existCustomer = CatalogBLL.GetCustomer(model.CustomerID);
+                    if (existCustomer == null)
+                    {
+                        CatalogBLL.AddCustomer(model);
+                    }
+                    else
+                    {
+                        CatalogBLL.UpdateCustomer(model);
+                    }
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    CatalogBLL.UpdateCustomer(model);
-                }
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

@@ -123,74 +123,77 @@ namespace LiteCommerce.Admin.Controllers
                     uploadFile.SaveAs(_path);
                     product.PhotoPath = _FileName;
                 }
-
-                //Luu vao DB
-                if (product.ProductID == 0)
+                if (ModelState.IsValid)
                 {
-                    int productID = CatalogBLL.AddProduct(product);
-                    if (attributes != null)
+                    //Luu vao DB
+                    if (product.ProductID == 0)
                     {
-                        List<ProductAttribute> productAttributes = new List<ProductAttribute>();
-                        int attLen = attributes.Count();
-                        for (int i = 0; i < attLen; i++)
+                        int productID = CatalogBLL.AddProduct(product);
+                        if (attributes != null)
                         {
-                            switch (i)
+                            List<ProductAttribute> productAttributes = new List<ProductAttribute>();
+                            int attLen = attributes.Count();
+                            for (int i = 0; i < attLen; i++)
                             {
-                                case 0:
-                                    productAttributes.Add(new ProductAttribute() { AttributeID = 1, AttributeName = "Size", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
-                                    break;
-                                case 1:
-                                    productAttributes.Add(new ProductAttribute() { AttributeID = 2, AttributeName = "Color", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
-                                    break;
-                                case 2:
-                                    productAttributes.Add(new ProductAttribute() { AttributeID = 3, AttributeName = "Material", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
-                                    break;
-                                case 3:
-                                    productAttributes.Add(new ProductAttribute() { AttributeID = 4, AttributeName = "Origin", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
-                                    break;
-                                default:
-                                    break;
+                                switch (i)
+                                {
+                                    case 0:
+                                        productAttributes.Add(new ProductAttribute() { AttributeID = 1, AttributeName = "Size", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
+                                        break;
+                                    case 1:
+                                        productAttributes.Add(new ProductAttribute() { AttributeID = 2, AttributeName = "Color", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
+                                        break;
+                                    case 2:
+                                        productAttributes.Add(new ProductAttribute() { AttributeID = 3, AttributeName = "Material", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
+                                        break;
+                                    case 3:
+                                        productAttributes.Add(new ProductAttribute() { AttributeID = 4, AttributeName = "Origin", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
+                            CatalogBLL.AddProductAttribute(productAttributes);
                         }
-                        CatalogBLL.AddProductAttribute(productAttributes);
                     }
-                }
-                else
-                {
-                    CatalogBLL.UpdateProduct(product);
-                    if (attributes != null)
+                    else
                     {
-                        List<ProductAttribute> productAttributes = new List<ProductAttribute>();
-                        int attLen = attributes.Length;
-                        for (int i = 0; i < attLen; i++)
+                        CatalogBLL.UpdateProduct(product);
+                        if (attributes != null)
                         {
-                            switch (i)
+                            List<ProductAttribute> productAttributes = new List<ProductAttribute>();
+                            int attLen = attributes.Length;
+                            for (int i = 0; i < attLen; i++)
                             {
-                                case 0:
-                                    productAttributes.Add(new ProductAttribute() { AttributeID = 1, AttributeName = "Size", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
-                                    break;
-                                case 1:
-                                    productAttributes.Add(new ProductAttribute() { AttributeID = 2, AttributeName = "Color", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
-                                    break;
-                                case 2:
-                                    productAttributes.Add(new ProductAttribute() { AttributeID = 3, AttributeName = "Material", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
-                                    break;
-                                case 3:
-                                    productAttributes.Add(new ProductAttribute() { AttributeID = 4, AttributeName = "Origin", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
-                                    break;
-                                default:
-                                    break;
+                                switch (i)
+                                {
+                                    case 0:
+                                        productAttributes.Add(new ProductAttribute() { AttributeID = 1, AttributeName = "Size", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
+                                        break;
+                                    case 1:
+                                        productAttributes.Add(new ProductAttribute() { AttributeID = 2, AttributeName = "Color", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
+                                        break;
+                                    case 2:
+                                        productAttributes.Add(new ProductAttribute() { AttributeID = 3, AttributeName = "Material", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
+                                        break;
+                                    case 3:
+                                        productAttributes.Add(new ProductAttribute() { AttributeID = 4, AttributeName = "Origin", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
+                            CatalogBLL.UpdateProductAttribute(productAttributes);
                         }
-                        CatalogBLL.UpdateProductAttribute(productAttributes);
                     }
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 return Content(ex.Message + ": " + ex.StackTrace);
             }
+            return View(product);
         }
 
         public ActionResult Delete(int[] productIDs)

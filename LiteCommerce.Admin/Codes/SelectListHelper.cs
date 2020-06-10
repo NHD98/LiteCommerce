@@ -17,9 +17,10 @@ namespace LiteCommerce.Admin
         public static List<SelectListItem> Countries()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            list.Add(new SelectListItem() { Value = "USA", Text = "United States" });
-            list.Add(new SelectListItem() { Value = "UK", Text = "England" });
-            list.Add(new SelectListItem() { Value = "VN", Text = "Vietnam" });
+            foreach (Country country in CatalogBLL.GetCountries())
+            {
+                list.Add(new SelectListItem() { Value = country.CountryID, Text = country.CountryName });
+            }
             return list;
         }
         /// <summary>

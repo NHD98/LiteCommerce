@@ -86,22 +86,25 @@ namespace LiteCommerce.Admin.Controllers
                 {
                     shipper.Phone = "";
                 }
-
-                // Lưu data vào DB
-                if (shipper.ShipperID == 0)
+                if (ModelState.IsValid)
                 {
-                    CatalogBLL.AddShipper(shipper);
-                }
-                else
-                {
-                    CatalogBLL.UpdateShipper(shipper);
+                    // Lưu data vào DB
+                    if (shipper.ShipperID == 0)
+                    {
+                        CatalogBLL.AddShipper(shipper);
+                    }
+                    else
+                    {
+                        CatalogBLL.UpdateShipper(shipper);
+                    }
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message + ": " + ex.StackTrace);
             }
-            return RedirectToAction("Index");
+            return View(shipper);
         }
         [HttpPost]
         public ActionResult Delete(int[] shipperIDs)
