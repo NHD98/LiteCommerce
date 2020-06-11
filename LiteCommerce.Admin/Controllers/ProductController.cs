@@ -73,43 +73,43 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
-        public ActionResult Input(Product product, string[] attributes, HttpPostedFileBase uploadFile)
+        public ActionResult Input(Product model, string[] atts, HttpPostedFileBase uploadFile)
         {
             try
             {
-                if (product.CategoryID == 0)
+                if (model.CategoryID == 0)
                 {
                     ModelState.AddModelError("CategoryID", "Please select a Category");
                 }
-                if (product.SupplierID == 0)
+                if (model.SupplierID == 0)
                 {
                     ModelState.AddModelError("SupplierID", "Please select a Supplier");
                 }
-                if (product.Description == null)
+                if (model.Description == null)
                 {
-                    product.Description = "";
+                    model.Description = "";
                 }
-                if (string.IsNullOrEmpty(product.PhotoPath))
+                if (string.IsNullOrEmpty(model.PhotoPath))
                 {
-                    Product existProduct = CatalogBLL.GetProduct(product.ProductID);
+                    Product existProduct = CatalogBLL.GetProduct(model.ProductID);
                     if (existProduct != null)
                     {
-                        product.PhotoPath = existProduct.PhotoPath;
+                        model.PhotoPath = existProduct.PhotoPath;
                     }
                     else
                     {
-                        product.PhotoPath = "";
+                        model.PhotoPath = "";
                     }
                 }
-                if (string.IsNullOrEmpty(product.ProductName))
+                if (string.IsNullOrEmpty(model.ProductName))
                 {
                     ModelState.AddModelError("ProductName", "Product Name is invalid");
                 }
-                if (string.IsNullOrEmpty(product.QuantityPerUnit))
+                if (string.IsNullOrEmpty(model.QuantityPerUnit))
                 {
                     ModelState.AddModelError("QuantityPerUnit", "Quantity Per Unit is invalid");
                 }
-                if (product.UnitPrice == 0)
+                if (model.UnitPrice == 0)
                 {
                     ModelState.AddModelError("UnitPrice", "Unit Price is invalid");
                 }
@@ -121,79 +121,80 @@ namespace LiteCommerce.Admin.Controllers
                     _FileName = DateTime.Now.Ticks.ToString() + Path.GetExtension(_FileName);
                     string _path = Path.Combine(Server.MapPath("~/Uploads/Images"), _FileName);
                     uploadFile.SaveAs(_path);
-                    product.PhotoPath = _FileName;
+                    model.PhotoPath = _FileName;
                 }
-                if (ModelState.IsValid)
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                //if (ModelState.IsValid)
+                //{
+                //Luu vao DB
+                if (model.ProductID == 0)
                 {
-                    //Luu vao DB
-                    if (product.ProductID == 0)
+                    int productID = CatalogBLL.AddProduct(model);
+                    if (atts != null)
                     {
-                        int productID = CatalogBLL.AddProduct(product);
-                        if (attributes != null)
+                        List<ProductAttribute> productAttributes = new List<ProductAttribute>();
+                        int attLen = atts.Count();
+                        for (int i = 0; i < attLen; i++)
                         {
-                            List<ProductAttribute> productAttributes = new List<ProductAttribute>();
-                            int attLen = attributes.Count();
-                            for (int i = 0; i < attLen; i++)
+                            switch (i)
                             {
-                                switch (i)
-                                {
-                                    case 0:
-                                        productAttributes.Add(new ProductAttribute() { AttributeID = 1, AttributeName = "Size", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
-                                        break;
-                                    case 1:
-                                        productAttributes.Add(new ProductAttribute() { AttributeID = 2, AttributeName = "Color", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
-                                        break;
-                                    case 2:
-                                        productAttributes.Add(new ProductAttribute() { AttributeID = 3, AttributeName = "Material", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
-                                        break;
-                                    case 3:
-                                        productAttributes.Add(new ProductAttribute() { AttributeID = 4, AttributeName = "Origin", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = productID });
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                case 0:
+                                    productAttributes.Add(new ProductAttribute() { AttributeID = 1, AttributeName = "Size", AttributeValues = atts[i], DisplayOrder = 1, ProductID = productID });
+                                    break;
+                                case 1:
+                                    productAttributes.Add(new ProductAttribute() { AttributeID = 2, AttributeName = "Color", AttributeValues = atts[i], DisplayOrder = 1, ProductID = productID });
+                                    break;
+                                case 2:
+                                    productAttributes.Add(new ProductAttribute() { AttributeID = 3, AttributeName = "Material", AttributeValues = atts[i], DisplayOrder = 1, ProductID = productID });
+                                    break;
+                                case 3:
+                                    productAttributes.Add(new ProductAttribute() { AttributeID = 4, AttributeName = "Origin", AttributeValues = atts[i], DisplayOrder = 1, ProductID = productID });
+                                    break;
+                                default:
+                                    break;
                             }
-                            CatalogBLL.AddProductAttribute(productAttributes);
                         }
+                        CatalogBLL.AddProductAttribute(productAttributes);
                     }
-                    else
-                    {
-                        CatalogBLL.UpdateProduct(product);
-                        if (attributes != null)
-                        {
-                            List<ProductAttribute> productAttributes = new List<ProductAttribute>();
-                            int attLen = attributes.Length;
-                            for (int i = 0; i < attLen; i++)
-                            {
-                                switch (i)
-                                {
-                                    case 0:
-                                        productAttributes.Add(new ProductAttribute() { AttributeID = 1, AttributeName = "Size", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
-                                        break;
-                                    case 1:
-                                        productAttributes.Add(new ProductAttribute() { AttributeID = 2, AttributeName = "Color", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
-                                        break;
-                                    case 2:
-                                        productAttributes.Add(new ProductAttribute() { AttributeID = 3, AttributeName = "Material", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
-                                        break;
-                                    case 3:
-                                        productAttributes.Add(new ProductAttribute() { AttributeID = 4, AttributeName = "Origin", AttributeValues = attributes[i], DisplayOrder = 1, ProductID = product.ProductID });
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                            CatalogBLL.UpdateProductAttribute(productAttributes);
-                        }
-                    }
-                    return RedirectToAction("Index");
                 }
+                else
+                {
+                    CatalogBLL.UpdateProduct(model);
+                    if (atts != null)
+                    {
+                        List<ProductAttribute> productAttributes = new List<ProductAttribute>();
+                        int attLen = atts.Length;
+                        for (int i = 0; i < attLen; i++)
+                        {
+                            switch (i)
+                            {
+                                case 0:
+                                    productAttributes.Add(new ProductAttribute() { AttributeID = 1, AttributeName = "Size", AttributeValues = atts[i], DisplayOrder = 1, ProductID = model.ProductID });
+                                    break;
+                                case 1:
+                                    productAttributes.Add(new ProductAttribute() { AttributeID = 2, AttributeName = "Color", AttributeValues = atts[i], DisplayOrder = 1, ProductID = model.ProductID });
+                                    break;
+                                case 2:
+                                    productAttributes.Add(new ProductAttribute() { AttributeID = 3, AttributeName = "Material", AttributeValues = atts[i], DisplayOrder = 1, ProductID = model.ProductID });
+                                    break;
+                                case 3:
+                                    productAttributes.Add(new ProductAttribute() { AttributeID = 4, AttributeName = "Origin", AttributeValues = atts[i], DisplayOrder = 1, ProductID = model.ProductID });
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        CatalogBLL.UpdateProductAttribute(productAttributes);
+                    }
+                }
+                return RedirectToAction("Index");
+                //}
             }
             catch (Exception ex)
             {
                 return Content(ex.Message + ": " + ex.StackTrace);
             }
-            return View(product);
+            return View(model);
         }
 
         public ActionResult Delete(int[] productIDs)
