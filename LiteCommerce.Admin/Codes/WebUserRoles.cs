@@ -15,12 +15,16 @@ namespace LiteCommerce.Admin
         /// </summary>
         public const string ANONYMOUS = "anonymous";
         /// <summary>
-        /// Nhân viên
+        /// nhân viên bán hàng
         /// </summary>
-        public const string STAFF = "staff";
+        public const string SALER = "saler";
         /// <summary>
-        /// Quản trị hệ thống
+        /// Nhân viên quản trị dữ liệu
         /// </summary>
-        public const string ADMINISTRATOR = "administrator";
+        public const string DATA_MANAGER = "data_manager";
+        /// <summary>
+        /// Nhân viên quản trị tài khoản
+        /// </summary>
+        public const string ACCOUNT_MANAGER = "account_manager";
     }
 }

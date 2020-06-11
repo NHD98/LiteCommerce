@@ -9,7 +9,8 @@ namespace LiteCommerce.Admin.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Authorize]
+    [Authorize(Roles = WebUserRoles.SALER)]
+    //[Authorize]
     public class OrderController : Controller
     {
         /// <summary>

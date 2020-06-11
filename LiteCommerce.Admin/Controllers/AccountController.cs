@@ -58,7 +58,7 @@ namespace LiteCommerce.Admin.Controllers
                 {
                     UserID = user.UserID,
                     FullName = user.FullName,
-                    GroupName = Convert.ToString(UserAccountTypes.Employee), //TODO: cần thay đổi cho đúng
+                    GroupName = user.Roles, //TODO: cần thay đổi cho đúng
                     LoginTime = DateTime.Now,
                     SessionID = Session.SessionID,
                     ClientIP = Request.UserHostAddress,

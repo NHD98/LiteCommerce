@@ -10,7 +10,8 @@ namespace LiteCommerce.Admin.Controllers
 {/// <summary>
  /// 
  /// </summary>
-    [Authorize]
+    [Authorize(Roles = WebUserRoles.DATA_MANAGER)]
+    //[Authorize]
     public class CategoryController : Controller
     {
         // GET: Category

@@ -27,5 +27,9 @@ namespace LiteCommerce.DomainModels
         /// Chức danh của User
         /// </summary>
         public string Title { get; set; }
+        /// <summary>
+        /// Vai trò của User
+        /// </summary>
+        public string Roles { get; set; }
     }
 }
