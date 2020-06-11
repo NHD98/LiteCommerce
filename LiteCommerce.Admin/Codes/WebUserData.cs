@@ -62,7 +62,7 @@ namespace LiteCommerce.Admin
             try
             {
                 string[] infos = cookie.Split('|');
-                if (infos.Length == 7)
+                if (infos.Length == 8)
                 {
                     return new WebUserData()
                     {

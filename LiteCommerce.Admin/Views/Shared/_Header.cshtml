@@ -105,7 +105,7 @@
                 </li>
                 <!-- User Account: style can be found in dropdown.less -->
                 @{
-                    var userData = User.GetUserData();
+                    WebUserData userData = WebUserData.FromCookieString(User.Identity.Name);
                 }
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
