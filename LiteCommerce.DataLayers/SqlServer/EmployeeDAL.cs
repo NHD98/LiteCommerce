@@ -244,7 +244,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 cmd.CommandText = @"UPDATE Employees
                                            SET LastName = @LastName, FirstName = @FirstName, Title = @Title, BirthDate = @BirthDate,
                                                 HireDate = @HireDate, Email = @Email, Address = @Address, City = @City, Country = @Country,
-                                                HomePhone = @HomePhone, Notes = @Notes, PhotoPath = @PhotoPath, Password = @Password
+                                                HomePhone = @HomePhone, Notes = @Notes, PhotoPath = @PhotoPath
                                           WHERE EmployeeID = @EmployeeID";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
@@ -263,8 +263,36 @@ namespace LiteCommerce.DataLayers.SqlServer
                 cmd.Parameters.AddWithValue("@HomePhone", data.HomePhone);
                 cmd.Parameters.AddWithValue("@Notes", data.Notes);
                 cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
-                cmd.Parameters.AddWithValue("@Password", data.Password);
                 cmd.Parameters.AddWithValue("@EmployeeID", data.EmployeeID);
+
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                connection.Close();
+            }
+
+            return rowsAffected > 0;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool ChangePassword(int userID, string password)
+        {
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"UPDATE Employees
+                                           SET Password = @Password
+                                          WHERE EmployeeID = @UserID";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@UserID", userID);
 
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
 

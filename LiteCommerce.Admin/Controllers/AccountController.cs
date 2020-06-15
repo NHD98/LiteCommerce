@@ -23,6 +23,52 @@ namespace LiteCommerce.Admin.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ChangePassword(string userID, string oldPassword, string newPassword, string confirmPassword)
+        {
+            //kiểm tra hợp lệ dữ liệu
+            if (string.IsNullOrEmpty(userID))
+            {
+                ModelState.AddModelError("userID", "UserID is invalid");
+            }
+            if (string.IsNullOrEmpty(oldPassword))
+            {
+                ModelState.AddModelError("oldPassword", "Old Password is invalid");
+            }
+            if (string.IsNullOrEmpty(newPassword))
+            {
+                ModelState.AddModelError("newPassword", "New Password is invalid");
+            }
+            if (string.IsNullOrEmpty(confirmPassword))
+            {
+                ModelState.AddModelError("confirmPassword", "Confirm Password is invalid");
+            }
+            if (!newPassword.Equals(confirmPassword))
+            {
+                ModelState.AddModelError("notMatch", "New Password and Confirm Password must match");
+            }
+            Employee existEmployee = EmployeeBLL.GetEmployee(Convert.ToInt32(userID));
+            oldPassword = MD5.EncodeMD5(oldPassword);
+            newPassword = MD5.EncodeMD5(newPassword);
+            if (!existEmployee.Password.Equals(oldPassword))
+            {
+                ModelState.AddModelError("wrongPassword", "Password is wrong");
+            }
+
+            if (ModelState.IsValid)
+            {
+                //Lưu thay đổi
+                if (EmployeeBLL.ChangePassword(Convert.ToInt32(userID), newPassword))
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+            }
+            return View();
+        }
         public ActionResult Index()
         {
             return View();

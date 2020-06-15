@@ -62,10 +62,24 @@ namespace LiteCommerce.BusinessLayers
         {
             return EmployeeDB.Add(employee);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employeeIDs"></param>
+        /// <returns></returns>
         public static int DeleteEmployee(int[] employeeIDs)
         {
             return EmployeeDB.Delete(employeeIDs);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static bool ChangePassword(int userID, string password)
+        {
+            return EmployeeDB.ChangePassword(userID, password);
         }
     }
 }

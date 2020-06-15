@@ -107,14 +107,14 @@ namespace LiteCommerce.BusinessLayers
         /// <param name="searchValue"></param>
         /// <param name="rowCount"></param>
         /// <returns></returns>
-        public static List<Customer> ListOfCustomers(int page, int pageSize, string searchValue, out int rowCount)
+        public static List<Customer> ListOfCustomers(int page, int pageSize, string searchValue, string country, out int rowCount)
         {
             if (page < 1)
                 page = 1;
             if (pageSize <= 0)
                 pageSize = 20;
-            rowCount = CustomerDB.Count(searchValue);
-            return CustomerDB.List(page, pageSize, searchValue);
+            rowCount = CustomerDB.Count(searchValue, country);
+            return CustomerDB.List(page, pageSize, searchValue, country);
         }
         /// <summary>
         /// 

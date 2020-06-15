@@ -6,13 +6,33 @@
 <div class="box box-primary">
     <div class="box-body">
         <form action="~/Customer" method="get">
-            <div class="input-group input-group-sm">
-                <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-primary btn-flat">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
+            <div class="form-group row">
+                <div class="col-sm-5">
+                    <select name="country" class="form-control">
+                        <option value="">--All Countries--</option>
+                        @{
+                            foreach (var country in SelectListHelper.Countries())
+                            {
+                                if (Model.Country == country.Value || Model.Country == country.Text)
+                                {
+                                    <option selected value="@country.Text">@country.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@country.Text">@country.Text</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="input-group col-sm-6">
+                    <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
             </div>
         </form>
     </div>
@@ -51,7 +71,7 @@
                             <td>
                                 <input type="checkbox" name="customerIDs" value="@customer.CustomerID" />
                             </td>
-                            <td>@(++i)</td>
+                            <td>@(++i + (Model.Page - 1) * Model.PageSize)</td>
                             <td>
                                 <span style="color:#0094ff; font-weight:bold; display:block">
                                     @customer.ContactName
@@ -92,8 +112,8 @@
                     if (currentPage - 5 > 0)
                     {
                         int prePage = currentPage - 1;
-                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=1">‹‹</a></li>
-                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@prePage">‹</a></li>
+                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=1&country=@Model.Country">‹‹</a></li>
+                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@prePage&country=@Model.Country">‹</a></li>
                         <li><a href="#">...</a></li>
                     }
                     int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
@@ -101,11 +121,11 @@
                     {
                         if (page == currentPage)
                         {
-                            <li class="active"><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                            <li class="active"><a href="~/Customer?searchValue=@Model.SearchValue&page=@page&country=@Model.Country">@page</a></li>
                         }
                         else
                         {
-                            <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                            <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@page&country=@Model.Country">@page</a></li>
                         }
                     }
 
@@ -115,19 +135,19 @@
                     {
                         if (page == currentPage)
                         {
-                            <li class="active"><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                            <li class="active"><a href="~/Customer?searchValue=@Model.SearchValue&page=@page&country=@Model.Country">@page</a></li>
                         }
                         else
                         {
-                            <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@page">@page</a></li>
+                            <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@page&country=@Model.Country">@page</a></li>
                         }
                     }
                     if (currentPage + 4 < Model.PageCount)
                     {
                         int nextPage = currentPage + 1;
                         <li><a href="#">...</a></li>
-                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@nextPage">›</a></li>
-                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@Model.PageCount">››</a></li>
+                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@nextPage&country=@Model.Country">›</a></li>
+                        <li><a href="~/Customer?searchValue=@Model.SearchValue&page=@Model.PageCount&country=@Model.Country">››</a></li>
                     }
                 }
             </ul>
