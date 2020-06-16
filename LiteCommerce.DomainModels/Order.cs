@@ -10,12 +10,14 @@ namespace LiteCommerce.DomainModels
     {
         public int OrderID { get; set; }
         public string CustomerID { get; set; }
+        public string CustomerCompanyName { get; set; }
         public int EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime RequiredDate { get; set; }
         public DateTime ShippedDate { get; set; }
         public int ShipperID { get; set; }
-        public int Freight { get; set; }
+        public string ShipperCompanyName { get; set; }
         public string ShipAddress { get; set; }
         public string ShipCity { get; set; }
         public string ShipCountry { get; set; }

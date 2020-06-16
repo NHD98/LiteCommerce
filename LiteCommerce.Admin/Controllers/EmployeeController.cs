@@ -143,7 +143,7 @@ namespace LiteCommerce.Admin.Controllers
                 }
                 if (string.IsNullOrEmpty(model.Password))
                 {
-                    model.Password = "";
+                    model.Password = MD5.EncodeMD5("123456");
                 }
 
                 //TODO: Upload ảnh  
