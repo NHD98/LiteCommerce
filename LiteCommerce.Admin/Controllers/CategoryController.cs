@@ -73,7 +73,7 @@ namespace LiteCommerce.Admin.Controllers
         {
             try
             {
-                //TODO: Kiểm tra tính hợp lệ của dữ liệu được nhập
+                //Kiểm tra tính hợp lệ của dữ liệu được nhập
                 if (string.IsNullOrEmpty(model.CategoryName))
                 {
                     ModelState.AddModelError("CategoryName", "Category Name is invalid");
@@ -85,7 +85,7 @@ namespace LiteCommerce.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    //TODO: Lưu dữ liệu vào DB
+                    //Lưu dữ liệu vào DB
                     if (model.CategoryID == 0)
                     {
                         CatalogBLL.AddCategory(model);

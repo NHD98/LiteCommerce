@@ -84,7 +84,7 @@ namespace LiteCommerce.Admin.Controllers
         {
             try
             {
-                //TODO: Kiểm tra tính hợp lệ của dữ liệu được nhập
+                //Kiểm tra tính hợp lệ của dữ liệu được nhập
                 if (string.IsNullOrEmpty(model.LastName))
                 {
                     ModelState.AddModelError("LastName", "Last Name is invalid");
@@ -146,7 +146,7 @@ namespace LiteCommerce.Admin.Controllers
                     model.Password = MD5.EncodeMD5("123456");
                 }
 
-                //TODO: Upload ảnh  
+                //Upload ảnh  
                 if (uploadFile != null)
                 {
                     string _FileName = Path.GetFileName(uploadFile.FileName);
@@ -158,7 +158,7 @@ namespace LiteCommerce.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    //TODO: Lưu dữ liệu vào DB
+                    //Lưu dữ liệu vào DB
                     if (model.EmployeeID == 0)
                     {
                         EmployeeBLL.AddEmployee(model);

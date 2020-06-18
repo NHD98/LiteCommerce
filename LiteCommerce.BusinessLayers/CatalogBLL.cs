@@ -111,8 +111,6 @@ namespace LiteCommerce.BusinessLayers
         {
             if (page < 1)
                 page = 1;
-            if (pageSize <= 0)
-                pageSize = 20;
             rowCount = CustomerDB.Count(searchValue, country);
             return CustomerDB.List(page, pageSize, searchValue, country);
         }

@@ -21,5 +21,6 @@ namespace LiteCommerce.DomainModels
         public string ShipAddress { get; set; }
         public string ShipCity { get; set; }
         public string ShipCountry { get; set; }
+        public float Freight { get; set; }
     }
 }

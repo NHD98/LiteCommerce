@@ -15,7 +15,7 @@ namespace LiteCommerce.Admin
         public static void Init()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["LiteCommerce"].ConnectionString;
-            //TODO: Khởi tạo các BLL khi cần sử dụng
+            //Khởi tạo các BLL khi cần sử dụng
             CatalogBLL.Initialize(connectionString);
             EmployeeBLL.Initialize(connectionString);
             OrderBLL.Initialize(connectionString);

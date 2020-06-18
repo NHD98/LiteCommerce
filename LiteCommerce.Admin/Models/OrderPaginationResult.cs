@@ -6,8 +6,11 @@ using System.Web;
 
 namespace LiteCommerce.Admin.Models
 {
-    public class OrderPaginationResult: PaginationResult
+    public class OrderPaginationResult : PaginationResult
     {
+        public string CustomerID { get; set; }
+        public int EmployeeID { get; set; }
+        public int ShipperID { get; set; }
         public List<Order> Data { get; set; }
     }
 }

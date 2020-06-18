@@ -71,7 +71,9 @@ namespace LiteCommerce.Admin.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            WebUserData userData = User.GetUserData();
+            Employee data = EmployeeBLL.GetEmployee(Convert.ToInt32(userData.UserID));
+            return View(data);
         }
         public ActionResult SignOut()
         {
@@ -94,7 +96,6 @@ namespace LiteCommerce.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignIn(string email = "", string password = "")
         {
-            //TODO: Kiem tra tai khoan thong qua co so du lieu
             password = MD5.EncodeMD5(password);
             UserAccount user = UserAccountBLL.Authorize(email, password, UserAccountTypes.Employee);
             if (user != null) //Đăng nhập thành công
@@ -104,7 +105,7 @@ namespace LiteCommerce.Admin.Controllers
                 {
                     UserID = user.UserID,
                     FullName = user.FullName,
-                    GroupName = user.Roles, //TODO: cần thay đổi cho đúng
+                    GroupName = user.Roles,
                     LoginTime = DateTime.Now,
                     SessionID = Session.SessionID,
                     ClientIP = Request.UserHostAddress,

@@ -1,5 +1,154 @@
-﻿
+﻿@model LiteCommerce.DomainModels.Employee
 @{
     ViewBag.Title = "Profile";
 }
+<div class="box box-primary">
+    <form role="form" action="~/Employee/Input" method="post" enctype="multipart/form-data">
+        <div class="box-header text-right">
+            <a href="~/Employee">Back to List</a>
+        </div>
+        <div class="box-body">
+            <input name="EmployeeID" value="@Model.EmployeeID" type="hidden" />
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <div class="pull-left image">
+                        <img src="~/Uploads/Images/@Model.PhotoPath" height="100px" width="100px" class="img-circle" alt="User Image">
+                    </div>
+                    <div>
+                        <label style="margin-left: 10px; color:#555; "> <input type="file" id="exampleInputFile" name="uploadFile" value="@Model.PhotoPath"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label>First Name:</label>
+                    <input type="text" class="form-control" placeholder="First Name" name="FirstName" value="@Model.FirstName">
+                </div>
+                <div class="col-sm-4">
+                    <label>Last Name:</label>
+                    <input type="text" class="form-control" placeholder="Last Name" name="LastName" value="@Model.LastName">
+                </div>
+                <div class="col-sm-4">
+                    <label>Title:</label>
+                    <select class="form-control" name="Title">
+                        <option value="">-- Choose Title --</option>
+                        @foreach (var title in SelectListHelper.Titles())
+                        {
+                            if (Model.Title == title.Value)
+                            {
+                                <option selected value="@title.Value">@title.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@title.Value">@title.Text</option>
+                            }
 
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>BirthDay:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="date" class="form-control" name="BirthDate" value="@(string.Format("{0:yyyy-MM-dd}", Model.BirthDate))" placeholder="yyyy/MM/dd" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label>Hire Day: @Html.ValidationMessage("HireDate")</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="date" class="form-control" name="HireDate" value="@(string.Format("{0:yyyy-MM-dd}", Model.HireDate))" placeholder="yyyy/MM/dd">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Email:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <input type="text" class="form-control" name="Email" value="@Model.Email">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label>Home Phone:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input type="text" class="form-control" name="HomePhone" value="@Model.HomePhone">
+                    </div>
+                </div>
+            </div>
+            @*<div class="form-group">
+                    <label>Password:</label>
+                    <input type="text" class="form-control" placeholder="Password" name="Password" value="@Model.Password">
+                </div>*@
+
+            <div class="form-group">
+                <label>Address:</label>
+                <input type="text" class="form-control" placeholder="Address" name="Address" value="@Model.Address">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Country:</label>
+                    <select class="form-control" name="Country">
+                        <option value="">-- Choose Country --</option>
+                        @foreach (var country in SelectListHelper.Countries())
+                        {
+                            {
+                                if (Model.Country == country.Value || Model.Country == country.Text)
+                                {
+                                    <option selected value="@country.Value">@country.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@country.Value">@country.Text</option>
+                                }
+
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label>City:</label>
+                    <input type="text" class="form-control" placeholder="Ex: New Orleans" name="City" value="@Model.City">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Phone:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input type="text" class="form-control" name="Phone" value="@Model.HomePhone" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <label>Note:</label>
+                    <textarea class="form-control" rows="4" name="Notes">@Model.Notes</textarea>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-save"></i> Save
+            </button>
+            <a class="btn btn-sm btn-default" href="~/Employee">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>

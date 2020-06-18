@@ -201,8 +201,8 @@ namespace LiteCommerce.DataLayers.SqlServer
 	                                    from Customers
 	                                    where (@searchValue = N'' or ContactName like @searchValue)
                                             and (@country = N'' or Country = @country)
-                                    ) as t
-                                    where t.RowNumber between @pageSize * (@page -  1) + 1 and @page * @pageSize";
+                                    ) as t  where (@pageSize <= 0) OR
+                                            (t.RowNumber between @pageSize * (@page -  1) + 1 and @page * @pageSize)";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@page", page);

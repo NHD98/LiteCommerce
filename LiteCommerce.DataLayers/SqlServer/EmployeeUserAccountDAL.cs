@@ -27,7 +27,6 @@ namespace LiteCommerce.DataLayers.SqlServer
         /// <returns></returns>
         public UserAccount Authorize(string userName, string password)
         {
-            //TODO: Kiểm tra thông tin tài khoản từ bảng Employee
             UserAccount user = null;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {

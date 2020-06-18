@@ -1,87 +1,133 @@
-﻿@{
+﻿@model LiteCommerce.DomainModels.Order
+@{
 }
 <div class="box box-primary">
-    <form role="form">
+    <form role="form" action="~/Order/Create" method="post">
         <div class="box-header text-right">
             <a href="~/Order">Back to List</a>
         </div>
         <div class="box-body">
             <div class="form-group row">
+                <input name="OrderID" value="@Model.OrderID" type="hidden" />
                 <div class="col-sm-4">
-                    <label>Customer:</label>
-                    <select class="form-control">
+                    <label>Customer: @Html.ValidationMessage("CustomerID")</label>
+                    <select class="form-control" name="CustomerID">
                         <option value="">-- Choose Customer --</option>
-                        <option value="ALFKI">Maria Anders</option>
-                        <option value="ANATR">Ana Trujillo</option>
-                        <option value="ANTON">Antonio Moreno</option>
-                        <option value="AROUT">Thomas Hardy</option>
+                        @{
+                            foreach (var customer in SelectListHelper.Customers())
+                            {
+                                if (Model.CustomerID == customer.Value)
+                                {
+                                    <option selected value="@customer.Value">@customer.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@customer.Value">@customer.Text</option>
+                                }
+                            }
+                        }
                     </select>
                 </div>
                 <div class="col-sm-4">
-                    <label>Employee:</label>
-                    <select class="form-control">
-                        <option value="">-- Choose Employee --</option>
-                        <option value="5">Buchanan	Steven</option>
-                        <option value="1">Davolio	Nancy</option>
-                        <option value="2">Fuller	Andrew</option>
-                        <option value="3">Leverling	Janet</option>
+                    <label>Employee: @Html.ValidationMessage("EmployeeID")</label>
+                    <select class="form-control" name="EmployeeID">
+                        <option value="0">-- Choose Employee --</option>
+                        @{
+                            foreach (var employee in SelectListHelper.Employees())
+                            {
+                                if (Model.EmployeeID == Convert.ToInt32(employee.Value))
+                                {
+                                    <option selected value="@employee.Value">@employee.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@employee.Value">@employee.Text</option>
+                                }
+                            }
+                        }
                     </select>
                 </div>
                 <div class="col-sm-4">
-                    <label>Shipper:</label>
-                    <select class="form-control">
-                        <option value="">-- Choose Shipper --</option>
-                        <option value="1">Speedy Express</option>
-                        <option value="2">United Package</option>
-                        <option value="3">Federal Shipping</option>
+                    <label>Shipper: @Html.ValidationMessage("ShipperID")</label>
+                    <select class="form-control" name="ShipperID">
+                        <option value="0">-- Choose Shipper --</option>
+                        @{
+                            foreach (var shipper in SelectListHelper.Shippers())
+                            {
+                                if (Model.ShipperID == Convert.ToInt32(shipper.Value))
+                                {
+                                    <option selected value="@shipper.Value">@shipper.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@shipper.Value">@shipper.Text</option>
+
+                                }
+                            }
+                        }
                     </select>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-4">
-                    <label>OrderDate:</label>
+                    <label>Order Date:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                        <input name="OrderDate" type="date" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="" value="@(string.Format("{0:yyyy-MM-dd}", Model.OrderDate))">
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <label>RequiredDate:</label>
+                    <label>Required Date:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                        <input name="RequiredDate" type="date" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="" value="@(string.Format("{0:yyyy-MM-dd}", Model.RequiredDate))">
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <label>ShippedDate:</label>
+                    <label>Shipped Date:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="">
+                        <input name="ShippedDate" type="date" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="@Model.ShippedDate" value="@(string.Format("{0:yyyy-MM-dd}", Model.ShippedDate))">
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label>Freight:</label>
-                <input type="text" class="form-control" placeholder="Freight">
+                <input type="number" name="Freight" value="@Model.Freight" class="form-control" />
             </div>
             <div class="form-group row">
                 <div class="col-sm-4">
-                    <label>ShipAddress:</label>
-                    <input type="text" class="form-control" placeholder="Ex: New Orleans">
+                    <label>Ship Address: @Html.ValidationMessage("ShipAddress")</label>
+                    <input name="ShipAddress" type="text" class="form-control" placeholder="Ex: New Orleans" value="@Model.ShipAddress">
                 </div>
                 <div class="col-sm-4">
-                    <label>ShipCity:</label>
-                    <input type="text" class="form-control" placeholder="Ex: New Orleans">
+                    <label>Ship City: @Html.ValidationMessage("ShipCity")</label>
+                    <input name="ShipCity" type="text" class="form-control" placeholder="Ex: New Orleans" value="@Model.ShipCity">
                 </div>
                 <div class="col-sm-4">
-                    <label>ShipCountry:</label>
-                    <input type="text" class="form-control" placeholder="Ex: VietNam">
+                    <label>Ship Country: @Html.ValidationMessage("ShipCountry")</label>
+                    <select name="ShipCountry" class="form-control">
+                        <option value="">-- Choose Country --</option>
+                        @{
+                            foreach (var country in SelectListHelper.Countries())
+                            {
+                                if (Model.ShipCountry == country.Value)
+                                {
+                                    <option selected value="@country.Value">@country.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@country.Value">@country.Text</option>
+                                }
+                            }
+                        }
+                    </select>
                 </div>
             </div>
         </div>

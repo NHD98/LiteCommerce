@@ -80,7 +80,7 @@ namespace LiteCommerce.Admin.Controllers
         {
             try
             {
-                //TODO: Kiểm tra tính hợp lệ của dữ liệu được nhập
+                //Kiểm tra tính hợp lệ của dữ liệu được nhập
                 if (string.IsNullOrEmpty(model.CompanyName))
                 {
                     ModelState.AddModelError("CompanyName", "Company Name is invalid");
@@ -120,7 +120,7 @@ namespace LiteCommerce.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    //TODO: Lưu dữ liệu vào DB
+                    //Lưu dữ liệu vào DB
                     if (model.SupplierID == 0)
                     {
                         CatalogBLL.AddSupplier(model);

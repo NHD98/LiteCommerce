@@ -31,7 +31,6 @@ namespace LiteCommerce.DataLayers.SqlServer
                     {
                         list.Add(new Country()
                         {
-                            CountryID = Convert.ToString(dbReader["CountryID"]),
                             CountryName = Convert.ToString(dbReader["CountryName"])
                         });
                     }

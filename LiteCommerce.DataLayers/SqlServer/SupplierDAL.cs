@@ -74,7 +74,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 cmd.Parameters.AddWithValue("@Fax", data.Fax);
                 cmd.Parameters.AddWithValue("@HomePage", data.HomePage);
 
-                supplierId = Convert.ToInt32(cmd.ExecuteScalar());
+                supplierId = Convert.ToInt32(cmd.ExecuteNonQuery());
 
                 connection.Close();
             }
