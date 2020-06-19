@@ -9,12 +9,12 @@
         <div class="box-body">
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <label>Company Name: @Html.ValidationMessage("")</label>
-                    <input name="countryID" type="text" class="form-control" placeholder="Enter Country ID" value="@Model.CountryID.Trim()" @(string.IsNullOrEmpty(Model.CountryID) ? "" : "readonly")>
+                    <label>Country ID: @Html.ValidationMessage("CountryID")</label>
+                    <input name="countryID" type="text" class="form-control" placeholder="Enter Country ID" value="@Model.CountryID" @(string.IsNullOrEmpty(Model.CountryID) ? "" : "readonly")>
                 </div>
                 <div class="col-sm-6">
-                    <label>Contact Name: @Html.ValidationMessage("")</label>
-                    <input name="countryName" type="text" class="form-control" placeholder="Enter Country Name" value="@Model.CountryName.Trim()">
+                    <label>Country Name: @Html.ValidationMessage("CountryName")</label>
+                    <input name="countryName" type="text" class="form-control" placeholder="Enter Country Name" value="@Model.CountryName">
                 </div>
             </div>
         </div>

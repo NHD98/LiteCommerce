@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {
+    [Authorize(Roles = WebUserRoles.DATA_MANAGER)]
     public class CountryController : Controller
     {
         public ActionResult Index(int page = 1, string searchValue = "")
@@ -46,14 +47,29 @@ namespace LiteCommerce.Admin.Controllers
         [HttpPost]
         public ActionResult Input(Country country)
         {
-            Country existCountry = CatalogBLL.GetCountry(country.CountryID);
-            if (existCountry == null)
+            if (string.IsNullOrEmpty(country.CountryID))
             {
-                CatalogBLL.AddCountry(country);
+                ModelState.AddModelError("CountryID", "CountryID is not valid");
+            }
+            if (string.IsNullOrEmpty(country.CountryName))
+            {
+                ModelState.AddModelError("CountryName", "Country Name is not valid");
+            }
+            if (ModelState.IsValid)
+            {
+                Country existCountry = CatalogBLL.GetCountry(country.CountryID);
+                if (existCountry == null)
+                {
+                    CatalogBLL.AddCountry(country);
+                }
+                else
+                {
+                    CatalogBLL.UpdateCountry(country);
+                }
             }
             else
             {
-                CatalogBLL.UpdateCountry(country);
+                return View(country);
             }
             return RedirectToAction("Index");
         }

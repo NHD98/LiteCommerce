@@ -174,17 +174,17 @@ namespace LiteCommerce.DataLayers.SqlServer
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"DELETE FROM Countries
-                                            WHERE(CountryName = @CountryName)
+                                            WHERE(CountryID = @CountryID)
                                               AND(CountryName NOT IN(SELECT Country FROM Customers))
                                                 AND(CountryName NOT IN(SELECT ShipCountry FROM Orders))
                                                 AND(CountryName NOT IN(SELECT Country FROM Employees))
                                                 AND(CountryName NOT IN(SELECT Country FROM Suppliers))";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
-                cmd.Parameters.Add("@CountryName", SqlDbType.NVarChar);
+                cmd.Parameters.Add("@CountryID", SqlDbType.NVarChar);
                 foreach (string countryID in countryIDs)
                 {
-                    cmd.Parameters["@CountryName"].Value = countryID.Trim();
+                    cmd.Parameters["@CountryID"].Value = countryID;
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected > 0)
                         countDeleted += 1;
