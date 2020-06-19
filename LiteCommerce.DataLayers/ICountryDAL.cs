@@ -9,6 +9,11 @@ namespace LiteCommerce.DataLayers
 {
     public interface ICountryDAL
     {
-        List<Country> List();
+        List<Country> List(int page, int pageSize, string searchValue);
+        int Count(string searchValue);
+        Country Get(string countryID);
+        bool Add(Country country);
+        bool Update(Country country);
+        int Delete(string[] countryIDs);
     }
 }

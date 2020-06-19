@@ -16,8 +16,9 @@ namespace LiteCommerce.Admin
         /// <returns></returns>
         public static List<SelectListItem> Countries()
         {
+            int count;
             List<SelectListItem> list = new List<SelectListItem>();
-            foreach (Country country in CatalogBLL.GetCountries())
+            foreach (Country country in CatalogBLL.GetCountries(1, -1, "", out count))
             {
                 list.Add(new SelectListItem() { Value = country.CountryName.Trim(), Text = country.CountryName.Trim() });
             }

@@ -342,9 +342,30 @@ namespace LiteCommerce.BusinessLayers
             return AttributeDB.List();
         }
 
-        public static List<Country> GetCountries()
+        public static List<Country> GetCountries(int page, int pageSize, string searchValue, out int rowCount)
         {
-            return CountryDB.List();
+            rowCount = CountryDB.Count(searchValue);
+            return CountryDB.List(page, pageSize, searchValue);
+        }
+
+        public static Country GetCountry(string countryID)
+        {
+            return CountryDB.Get(countryID);
+        }
+
+        public static bool AddCountry(Country country)
+        {
+            return CountryDB.Add(country);
+        }
+
+        public static bool UpdateCountry(Country country)
+        {
+            return CountryDB.Update(country);
+        }
+
+        public static int DeleteCountries(string[] countryIDs)
+        {
+            return CountryDB.Delete(countryIDs);
         }
         #endregion
     }
