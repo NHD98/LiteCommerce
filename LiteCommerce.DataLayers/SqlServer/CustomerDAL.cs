@@ -197,7 +197,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 // Tạo lệnh thực thi truy vấn dữ liệu
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"select * from (
-	                                    select ROW_NUMBER() over(order by ContactName) as RowNumber, Customers.*
+	                                    select ROW_NUMBER() over(order by CompanyName) as RowNumber, Customers.*
 	                                    from Customers
 	                                    where (@searchValue = N'' or ContactName like @searchValue)
                                             and (@country = N'' or Country = @country)

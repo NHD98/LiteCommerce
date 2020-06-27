@@ -20,7 +20,7 @@ namespace LiteCommerce.Admin
             List<SelectListItem> list = new List<SelectListItem>();
             foreach (Country country in CatalogBLL.GetCountries(1, -1, "", out count))
             {
-                list.Add(new SelectListItem() { Value = country.CountryName.Trim(), Text = country.CountryName.Trim() });
+                list.Add(new SelectListItem() { Value = country.CountryID.Trim(), Text = country.CountryName.Trim() });
             }
             return list;
         }
@@ -120,6 +120,18 @@ namespace LiteCommerce.Admin
             foreach (Shipper shipper in shippers)
             {
                 list.Add(new SelectListItem() { Value = Convert.ToString(shipper.ShipperID), Text = shipper.CompanyName });
+            }
+            return list;
+        }
+
+        public static List<SelectListItem> Products()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            int count;
+            List<Product> products = CatalogBLL.ListOfProduct(1, -1, "", 0, 0, out count);
+            foreach (Product product in products)
+            {
+                list.Add(new SelectListItem() { Value = product.ProductID.ToString(), Text = product.ProductName });
             }
             return list;
         }

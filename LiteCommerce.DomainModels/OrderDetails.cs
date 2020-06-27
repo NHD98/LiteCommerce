@@ -9,9 +9,10 @@ namespace LiteCommerce.DomainModels
     /// <summary>
     /// Chi tiết đơn hàng
     /// </summary>
-    public class OrderDetails
+    public class OrderDetail
     {
         public int OrderID { get; set; }
-        public List<Product> Products { get; set; }
+        public int ProductID { get; set; }
+        public int Quantity { get; set; }
     }
 }

@@ -7,8 +7,8 @@
 <div class="box box-primary">
     <div class="box-body">
         <form action="~/Product" method="get">
-            <div class="form-group row">
-                <div class="col-sm-3">
+            <div class="row">
+                <div class="col-sm-3 input-group-sm">
                     <select name="categoryID" class="form-control">
                         <option value="">--Choose Category--</option>
                         @{
@@ -26,7 +26,7 @@
                         }
                     </select>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 input-group-sm">
                     <select name="supplierID" class="form-control">
                         <option value="">--Choose Supplier--</option>
                         @{
@@ -45,13 +45,15 @@
                         }
                     </select>
                 </div>
-                <div class="input-group col-sm-5">
-                    <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary btn-flat">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+                <div class="col-sm-6">
+                    <div class="input-group input-group-sm">
+                        <input name="searchValue" type="text" class="form-control" placeholder="Input search value..." value="@Model.SearchValue">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
         </form>
@@ -92,7 +94,7 @@
                     {
                         <tr>
                             <td>
-                                <input type="checkbox" name="productIDs" value="@product.ProductID"/>
+                                <input type="checkbox" name="productIDs" value="@product.ProductID" />
                             </td>
                             <td>@(++i + (Model.Page - 1) * Model.PageSize)</td>
                             <td>

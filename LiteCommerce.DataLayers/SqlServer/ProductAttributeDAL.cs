@@ -146,8 +146,8 @@ namespace LiteCommerce.DataLayers.SqlServer
                         list.Add(new ProductAttribute()
                         {
                             AttributeID = Convert.ToInt32(dbReader["AttributeID"]),
-                            AttributeName = Convert.ToString(dbReader["AttributeName"]),
-                            AttributeValues = Convert.ToString(dbReader["AttributeValues"]),
+                            AttributeName = Convert.ToString(dbReader["AttributeName"]).Trim(),
+                            AttributeValues = Convert.ToString(dbReader["AttributeValues"]).Trim(),
                             DisplayOrder = Convert.ToInt32(dbReader["DisplayOrder"]),
                             ProductID = Convert.ToInt32(dbReader["ProductID"])
                         });

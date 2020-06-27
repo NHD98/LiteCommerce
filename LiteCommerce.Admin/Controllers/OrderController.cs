@@ -50,7 +50,8 @@ namespace LiteCommerce.Admin.Controllers
                 ViewBag.Title = " Create new Order";
                 Order order = new Order()
                 {
-                    OrderID = 0
+                    OrderID = 0,
+                    Details = new List<OrderDetail>()
                 };
                 return View(order);
             }
@@ -62,12 +63,12 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(Order order)
+        public ActionResult Create(Order order, int[] productIDs, int[] quantities)
         {
             //Kiểm tra hợp lệ dữ liệu
-            if (order.OrderDate == null)
+            if (order.OrderDate == new DateTime(0001, 01, 01))
             {
-                order.OrderDate = new DateTime(2000, 1, 1);
+                ModelState.AddModelError("OrderDate", "OrderDate is invalid");
             }
             if (string.IsNullOrEmpty(order.CustomerID))
             {
@@ -77,9 +78,9 @@ namespace LiteCommerce.Admin.Controllers
             {
                 ModelState.AddModelError("EmployeeID", "Please select an Employee");
             }
-            if (order.RequiredDate == null)
+            if (order.RequiredDate == new DateTime(0001, 01, 01))
             {
-                order.OrderDate = new DateTime(2000, 1, 1);
+                ModelState.AddModelError("RequiredDate", "RequiredDate is invalid");
             }
             if (string.IsNullOrEmpty(order.ShipAddress))
             {
@@ -93,13 +94,27 @@ namespace LiteCommerce.Admin.Controllers
             {
                 ModelState.AddModelError("ShipCountry", "Please enter ship country");
             }
-            if (order.ShippedDate == null)
+            if (order.ShippedDate == new DateTime(0001, 01, 01))
             {
-                order.ShippedDate = new DateTime(2000, 1, 1);
+                ModelState.AddModelError("ShippedDate", "ShippedDate is invalid");
             }
             if (order.ShipperID == 0)
             {
                 ModelState.AddModelError("ShipperID", "Please select Shipper");
+            }
+            if (productIDs != null)
+            {
+                try
+                {
+                    for (int i = 0; i < productIDs.Length; i++)
+                    {
+                        int temp = Convert.ToInt32(productIDs[i]);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Quantity", "Quantity(s) must be a number");
+                }
             }
 
             if (ModelState.IsValid)
@@ -108,17 +123,53 @@ namespace LiteCommerce.Admin.Controllers
                 if (order.OrderID == 0)
                 {
                     //Tạo mới
-                    OrderBLL.AddOrder(order);
+                    int orderID = OrderBLL.AddOrder(order);
+                    if (productIDs != null && quantities != null)
+                    {
+                        int detailLenght = productIDs.Length;
+                        for (int i = 0; i < detailLenght; i++)
+                        {
+                            if (productIDs[i] <= 0 || quantities[i] <= 0)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                OrderBLL.AddOrderDetail(new OrderDetail() { OrderID = orderID, ProductID = productIDs[i], Quantity = quantities[i] });
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     //Sửa
                     OrderBLL.Update(order);
+                    OrderBLL.DeleteOrderDetails(order.OrderID);
+                    if (productIDs != null && quantities != null)
+                    {
+                        int detailLenght = productIDs.Length;
+                        for (int i = 0; i < detailLenght; i++)
+                        {
+                            if (productIDs[i] <= 0 || quantities[i] <= 0)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                OrderBLL.AddOrderDetail(new OrderDetail() { OrderID = order.OrderID, ProductID = productIDs[i], Quantity = quantities[i] });
+                            }
+                        }
+                    }
                 }
                 return RedirectToAction("Index");
             }
             else
             {
+                order.Details = OrderBLL.ListOfOrderDetail(order.OrderID);
+                if (order.Details == null)
+                {
+                    order.Details = new List<OrderDetail>();
+                }
                 return View(order);
             }
         }

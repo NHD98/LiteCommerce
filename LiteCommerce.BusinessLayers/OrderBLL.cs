@@ -49,5 +49,20 @@ namespace LiteCommerce.BusinessLayers
         {
             return OrderDB.Update(order);
         }
+
+        public static int DeleteOrderDetails(int orderID)
+        {
+            return OrderDB.DeleteDetails(orderID);
+        }
+
+        public static int AddOrderDetail(OrderDetail detail)
+        {
+            return OrderDB.AddDetail(detail);
+        }
+
+        public static List<OrderDetail> ListOfOrderDetail(int orderID)
+        {
+            return OrderDB.ListOfDetails(orderID);
+        }
     }
 }

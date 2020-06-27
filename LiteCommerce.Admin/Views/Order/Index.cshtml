@@ -6,7 +6,7 @@
 <div class="box box-primary">
     <div class="box-body">
         <form action="~/Order" method="get">
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-4 input-group-sm">
                     <select name="customerID" class="form-control">
                         <option value="">-- Choose Customer --</option>
@@ -43,28 +43,30 @@
                         }
                     </select>
                 </div>
-                <div class="input-group input-group-sm col-sm-4">
-                    <select name="shipperID" class="form-control">
-                        <option value="0">-- Choose Shipper --</option>
-                        @{
-                            foreach (var shipper in SelectListHelper.Shippers())
-                            {
-                                if (Model.ShipperID == Convert.ToInt32(shipper.Value))
+                <div class="col-sm-4">
+                    <div class="input-group input-group-sm">
+                        <select name="shipperID" class="form-control">
+                            <option value="0">-- Choose Shipper --</option>
+                            @{
+                                foreach (var shipper in SelectListHelper.Shippers())
                                 {
-                                    <option selected value="@shipper.Value">@shipper.Text</option>
-                                }
-                                else
-                                {
-                                    <option value="@shipper.Value">@shipper.Text</option>
+                                    if (Model.ShipperID == Convert.ToInt32(shipper.Value))
+                                    {
+                                        <option selected value="@shipper.Value">@shipper.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@shipper.Value">@shipper.Text</option>
+                                    }
                                 }
                             }
-                        }
-                    </select>
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary btn-flat">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+                        </select>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
         </form>
@@ -148,7 +150,7 @@
             {
                 int prePage = currentPage - 1;
                 <li><a href="~/Order?page=1&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">‹‹</a></li>
-                    <li><a href="~/Order?page=@prePage&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">‹</a></li>
+                <li><a href="~/Order?page=@prePage&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">‹</a></li>
                     <li><a href="#">...</a></li>
             }
             int startPage = currentPage - 4 > 0 ? currentPage - 4 : 1;
@@ -174,15 +176,15 @@
                 }
                 else
                 {
-                    <li><a href="~/Order?searchValue=@page=@page&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">@page</a></li>
+                    <li><a href="~/Order?page=@page&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">@page</a></li>
                 }
             }
             if (currentPage + 4 < Model.PageCount)
             {
                 int nextPage = currentPage + 1;
                 <li><a href="#">...</a></li>
-                    <li><a href="~/Order?page=@nextPage&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">›</a></li>
-                    <li><a href="~/Order?page=@Model.PageCount&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">››</a></li>
+                <li><a href="~/Order?page=@nextPage&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">›</a></li>
+                    <li><a href="~/Order?page=@nextPage&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">››</a></li>
             }
         }
     </ul>

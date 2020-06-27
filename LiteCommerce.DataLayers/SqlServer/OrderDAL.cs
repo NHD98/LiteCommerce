@@ -18,7 +18,6 @@ namespace LiteCommerce.DataLayers.SqlServer
         }
         public int Add(Order data)
         {
-            //TODO: implement add order
             int orderID = 0;
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
@@ -39,7 +38,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                                                 @ShipCountry, 
                                                 @Freight
                                                 );
-                                          SELECT @@IDENTITY;";
+                                                SELECT @@IDENTITY";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@CustomerID", data.CustomerID);
@@ -53,7 +52,7 @@ namespace LiteCommerce.DataLayers.SqlServer
                 cmd.Parameters.AddWithValue("@ShipCountry", data.ShipCountry);
                 cmd.Parameters.AddWithValue("@Freight", data.Freight);
 
-                orderID = Convert.ToInt32(cmd.ExecuteNonQuery());
+                orderID = Convert.ToInt32(cmd.ExecuteScalar());
                 connection.Close();
             }
             return orderID;
@@ -109,7 +108,6 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return countDeleted;
         }
-
         public Order Get(int orderID)
         {
             Order data = null;
@@ -146,6 +144,7 @@ namespace LiteCommerce.DataLayers.SqlServer
 
                 connection.Close();
             }
+            data.Details = ListOfDetails(orderID);
             return data;
         }
 
@@ -249,6 +248,83 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
 
             return rowsAffected > 0;
+        }
+
+        public int AddDetail(OrderDetail detail)
+        {
+
+            int orderDetailInserted = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"INSERT INTO OrderDetails
+                                          (OrderID, ProductID, Quantity)
+                                          VALUES (
+                                                @OrderID, 
+                                                @ProductID, 
+                                                @Quantity
+                                                );";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@OrderID", detail.OrderID);
+                cmd.Parameters.AddWithValue("@ProductID", detail.ProductID);
+                cmd.Parameters.AddWithValue("@Quantity", detail.Quantity);
+
+                orderDetailInserted = Convert.ToInt32(cmd.ExecuteNonQuery());
+                connection.Close();
+            }
+            return orderDetailInserted;
+        }
+
+        public int DeleteDetails(int orderID)
+        {
+            int countDeleted = 0;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"DELETE FROM OrderDetails
+                                            WHERE(OrderID = @orderID)";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@orderID", orderID);
+                countDeleted = cmd.ExecuteNonQuery();
+
+                connection.Close();
+            }
+            return countDeleted;
+        }
+
+        public List<OrderDetail> ListOfDetails(int orderID)
+        {
+            List<OrderDetail> details = new List<OrderDetail>();
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = connection;
+                cmd.CommandText = @"SELECT O.OrderID, P.ProductID, O.Quantity
+                                    FROM OrderDetails as O join Products as P on O.ProductID = P.ProductID
+                                    WHERE O.OrderID = @orderID";
+                cmd.Parameters.AddWithValue("@orderID", orderID);
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    while (dbReader.Read())
+                    {
+                        details.Add(new OrderDetail()
+                        {
+                            OrderID = Convert.ToInt32(dbReader["OrderID"]),
+                            ProductID = Convert.ToInt32(dbReader["ProductID"]),
+                            Quantity = Convert.ToInt32(dbReader["Quantity"])
+                        });
+                    }
+                }
+                connection.Close();
+            }
+            return details;
         }
     }
 }

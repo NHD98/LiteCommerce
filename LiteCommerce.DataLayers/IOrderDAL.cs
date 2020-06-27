@@ -50,6 +50,10 @@ namespace LiteCommerce.DataLayers
         /// <param name="OrderIDs">Danh sách các ID của các Order cần xóa</param>
         /// <returns></returns>
         int Delete(int[] OrderIDs);
+
+        List<OrderDetail> ListOfDetails(int orderID);
+        int AddDetail(OrderDetail detail);
+        int DeleteDetails(int orderID);
     }
 }
 

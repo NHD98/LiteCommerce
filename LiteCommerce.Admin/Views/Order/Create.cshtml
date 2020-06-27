@@ -70,7 +70,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-4">
-                    <label>Order Date:</label>
+                    <label>Order Date: @Html.ValidationMessage("OrderDate")</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <label>Required Date:</label>
+                    <label>Required Date: @Html.ValidationMessage("RequiredDate")</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <label>Shipped Date:</label>
+                    <label>Shipped Date: @Html.ValidationMessage("ShippedDate")</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
@@ -99,7 +99,7 @@
             </div>
             <div class="form-group">
                 <label>Freight:</label>
-                <input type="number" name="Freight" value="@Model.Freight" class="form-control" />
+                <input type="text" name="Freight" value="@Model.Freight" class="form-control" />
             </div>
             <div class="form-group row">
                 <div class="col-sm-4">
@@ -117,9 +117,9 @@
                         @{
                             foreach (var country in SelectListHelper.Countries())
                             {
-                                if (Model.ShipCountry == country.Value)
+                                if (Model.ShipCountry == country.Value || Model.ShipCountry == country.Text)
                                 {
-                                    <option selected value="@country.Value">@country.Text</option>
+                                    <option selected value="@country.Text">@country.Text</option>
                                 }
                                 else
                                 {
@@ -130,15 +130,90 @@
                     </select>
                 </div>
             </div>
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-            <button type="submit" class="btn btn-sm btn-primary">
-                <i class="fa fa-save"></i> Save
-            </button>
-            <a class="btn btn-sm btn-default" href="~/Order">
-                Cancel
-            </a>
-        </div>
+            <div class="box">
+                <div class="box-header with-border" id="OrderDetail">
+                    @{
+                        foreach (var detail in Model.Details)
+                        {
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label>Product:</label>
+                                    <select class="form-control" name="productIDs">
+                                        <option value="">-- Choose Product --</option>
+                                        @{
+                                            foreach (var product in SelectListHelper.Products())
+                                            {
+                                                if (detail.ProductID.ToString().Equals(product.Value))
+                                                {
+                                                    <option selected value="@product.Value">@product.Text</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@product.Value">@product.Text</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label>Quantity: @Html.ValidationMessage("Quantity")</label>
+                                    <input name="quantities" class="form-control" type="text" placeholder="Quantity" value="@detail.Quantity" />
+                                </div>
+                                <div class="box-tools pull-right col-sm-1">
+                                    <button type="button" onclick="CloseOrderDetail()">
+                                        X
+                                    </button>
+                                </div>
+                            </div>
+                                            }
+                    }
+                </div>
+            </div>
+            <button type="button" onclick="AddDetail()"><i class="fa fa-plus"></i> Add Product</button>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="fa fa-save"></i> Save
+                </button>
+                <a class="btn btn-sm btn-default" href="~/Order">
+                    Cancel
+                </a>
+            </div>
     </form>
 </div>
+
+<script>
+    function AddDetail() {
+        let element = document.getElementById("OrderDetail");
+        let newElement = document.createElement('div');
+        newElement.classList.add("form-group");
+        newElement.classList.add("row");
+        const detailInput = ` <div class="col-sm-6">
+                                    <label>Product:</label>
+                                    <select class="form-control" name="productIDs">
+                                        <option value="">-- Choose Product --</option>
+                                        @{
+                                            foreach (var product in SelectListHelper.Products())
+                                            {
+                                                    <option value="@product.Value">@product.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-sm-5">
+                                    <label>Quantity:</label>
+                                    <input name="quantities" class="form-control" type="text" placeholder="Quantity"  />
+                                </div>
+                                <div class="box-tools pull-right col-sm-1">
+                                    <button type="button" onclick="CloseOrderDetail()">
+                                        X
+                                    </button>
+                                </div>`;
+        newElement.innerHTML += detailInput;
+        element.insertAdjacentElement('beforeend', newElement);
+    }
+
+    function CloseOrderDetail() {
+        let element = event.target.parentElement.parentElement.remove();
+    }
+</script>

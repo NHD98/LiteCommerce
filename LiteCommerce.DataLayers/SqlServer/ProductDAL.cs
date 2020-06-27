@@ -189,7 +189,7 @@ namespace LiteCommerce.DataLayers.SqlServer
 	                                   and ((Products.SupplierID = @SupplierID) or (@SupplierID <= 0))
 	                                   and ((Products.CategoryID = @categoryID) or (@categoryID <= 0))
 	                                   ) as t
-	                                    where t.RowNumber between @pageSize * (@page -  1) + 1 and @page * @pageSize";
+	                                    where (@pageSize <= 0) OR  (t.RowNumber between @pageSize * (@page -  1) + 1 and @page * @pageSize)";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@page", page);

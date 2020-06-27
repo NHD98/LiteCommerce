@@ -43,10 +43,6 @@ namespace LiteCommerce.Admin.Controllers
             {
                 ModelState.AddModelError("newPassword", "New Password is invalid");
             }
-            if (string.IsNullOrEmpty(confirmPassword))
-            {
-                ModelState.AddModelError("confirmPassword", "Confirm Password is invalid");
-            }
             if (!newPassword.Equals(confirmPassword))
             {
                 ModelState.AddModelError("notMatch", "New Password and Confirm Password must match");
@@ -56,7 +52,7 @@ namespace LiteCommerce.Admin.Controllers
             newPassword = MD5.EncodeMD5(newPassword);
             if (!existEmployee.Password.Equals(oldPassword))
             {
-                ModelState.AddModelError("wrongPassword", "Password is wrong");
+                ModelState.AddModelError("wrongPassword", "Incorrect Password");
             }
 
             if (ModelState.IsValid)
