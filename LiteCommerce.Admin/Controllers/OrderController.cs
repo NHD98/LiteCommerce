@@ -178,6 +178,10 @@ namespace LiteCommerce.Admin.Controllers
         {
             if (orderIDs.Length > 0)
             {
+                for (int i = 0; i < orderIDs.Length; i++)
+                {
+                    OrderBLL.DeleteOrderDetails(orderIDs[i]);
+                }
                 OrderBLL.DeleteOrder(orderIDs);
             }
             return RedirectToAction("Index");

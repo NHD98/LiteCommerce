@@ -80,6 +80,7 @@ namespace LiteCommerce.Admin.Controllers
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         public ActionResult Input(Employee model, HttpPostedFileBase uploadFile)
         {
             try
