@@ -38,7 +38,7 @@ namespace LiteCommerce.Admin.Controllers
             return View(model);
         }
         /// <summary>
-        /// 
+        /// tao moi hoac sua
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -76,7 +76,7 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
         /// <summary>
-        /// 
+        /// tao moi hoac sua
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
@@ -182,7 +182,7 @@ namespace LiteCommerce.Admin.Controllers
             return View(model);
         }
         /// <summary>
-        /// 
+        /// xoa
         /// </summary>
         /// <param name="employeeIDs"></param>
         /// <returns></returns>

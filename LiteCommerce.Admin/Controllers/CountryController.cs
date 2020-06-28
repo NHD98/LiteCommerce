@@ -28,7 +28,11 @@ namespace LiteCommerce.Admin.Controllers
 
             return View(model);
         }
-
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Input(string id = "")
         {
             if (string.IsNullOrEmpty(id))
@@ -44,6 +48,11 @@ namespace LiteCommerce.Admin.Controllers
                 return View(country);
             }
         }
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Country country)
         {
@@ -73,6 +82,11 @@ namespace LiteCommerce.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+        /// <summary>
+        /// xoa
+        /// </summary>
+        /// <param name="countryIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(string[] countryIDs)
         {

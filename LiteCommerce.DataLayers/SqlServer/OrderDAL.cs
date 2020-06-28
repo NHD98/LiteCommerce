@@ -12,10 +12,19 @@ namespace LiteCommerce.DataLayers.SqlServer
     public class OrderDAL : IOrderDAL
     {
         private string connectionString;
+        /// <summary>
+        /// khoi tao
+        /// </summary>
+        /// <param name="connectionString"></param>
         public OrderDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
+        /// <summary>
+        /// them order
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int Add(Order data)
         {
             int orderID = 0;
@@ -57,7 +66,13 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return orderID;
         }
-
+        /// <summary>
+        /// dem orders
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <param name="employeeID"></param>
+        /// <param name="shipperID"></param>
+        /// <returns></returns>
         public int Count(string customerID, int employeeID, int shipperID)
         {
             int count = 0;
@@ -82,7 +97,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return count;
         }
-
+        /// <summary>
+        /// xoa orders
+        /// </summary>
+        /// <param name="OrderIDs"></param>
+        /// <returns></returns>
         public int Delete(int[] OrderIDs)
         {
             int countDeleted = 0;
@@ -108,6 +127,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return countDeleted;
         }
+        /// <summary>
+        /// lay chi tiet order
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         public Order Get(int orderID)
         {
             Order data = null;
@@ -147,7 +171,15 @@ namespace LiteCommerce.DataLayers.SqlServer
             data.Details = ListOfDetails(orderID);
             return data;
         }
-
+        /// <summary>
+        /// danh sach cac order
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="customerID"></param>
+        /// <param name="employeeID"></param>
+        /// <param name="shipperID"></param>
+        /// <returns></returns>
         public List<Order> List(int page, int pageSize, string customerID, int employeeID, int shipperID)
         {
             List<Order> data = new List<Order>();
@@ -207,7 +239,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// cap nhat order
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Update(Order data)
         {
             int rowsAffected = 0;
@@ -249,7 +285,11 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return rowsAffected > 0;
         }
-
+        /// <summary>
+        /// them chi tiet
+        /// </summary>
+        /// <param name="detail"></param>
+        /// <returns></returns>
         public int AddDetail(OrderDetail detail)
         {
 
@@ -277,7 +317,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return orderDetailInserted;
         }
-
+        /// <summary>
+        /// xoa chi tiet
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         public int DeleteDetails(int orderID)
         {
             int countDeleted = 0;
@@ -297,7 +341,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return countDeleted;
         }
-
+        /// <summary>
+        /// danh sach chi tiet
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         public List<OrderDetail> ListOfDetails(int orderID)
         {
             List<OrderDetail> details = new List<OrderDetail>();

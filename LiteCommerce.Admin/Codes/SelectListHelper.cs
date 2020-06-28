@@ -25,7 +25,7 @@ namespace LiteCommerce.Admin
             return list;
         }
         /// <summary>
-        /// 
+        /// select list cac titles
         /// </summary>
         /// <returns></returns>
         public static List<SelectListItem> Titles()
@@ -37,7 +37,10 @@ namespace LiteCommerce.Admin
             list.Add(new SelectListItem() { Value = "Inside Sales Coordinator", Text = "Inside Sales Coordinator" });
             return list;
         }
-
+        /// <summary>
+        /// select list cac categories
+        /// </summary>
+        /// <returns></returns>
         public static List<SelectListItem> Categories()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -53,7 +56,10 @@ namespace LiteCommerce.Admin
 
             return list;
         }
-
+        /// <summary>
+        /// select list cac suppliers
+        /// </summary>
+        /// <returns></returns>
         public static List<SelectListItem> Suppliers()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -69,7 +75,11 @@ namespace LiteCommerce.Admin
 
             return list;
         }
-
+        /// <summary>
+        /// select list cac attributes
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         public static List<ProductAttribute> Attributes(int productID)
         {
             if (productID > 0)
@@ -87,7 +97,10 @@ namespace LiteCommerce.Admin
                 return list;
             }
         }
-
+        /// <summary>
+        /// select list cac customers
+        /// </summary>
+        /// <returns></returns>
         public static List<SelectListItem> Customers()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -99,7 +112,10 @@ namespace LiteCommerce.Admin
             }
             return list;
         }
-
+        /// <summary>
+        /// select list cac employees
+        /// </summary>
+        /// <returns></returns>
         public static List<SelectListItem> Employees()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -111,7 +127,10 @@ namespace LiteCommerce.Admin
             }
             return list;
         }
-
+        /// <summary>
+        /// select list cac shippers
+        /// </summary>
+        /// <returns></returns>
         public static List<SelectListItem> Shippers()
         {
             List<SelectListItem> list = new List<SelectListItem>();
@@ -123,7 +142,10 @@ namespace LiteCommerce.Admin
             }
             return list;
         }
-
+        /// <summary>
+        /// select list cac products
+        /// </summary>
+        /// <returns></returns>
         public static List<SelectListItem> Products()
         {
             List<SelectListItem> list = new List<SelectListItem>();

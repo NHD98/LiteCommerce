@@ -11,10 +11,18 @@ namespace LiteCommerce.DataLayers.SqlServer
     public class AttributeDAL : IAttributeDAL
     {
         private string connectionString;
+        /// <summary>
+        /// khoi tao
+        /// </summary>
+        /// <param name="connectionString"></param>
         public AttributeDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
+        /// <summary>
+        /// danh sach cac attributes
+        /// </summary>
+        /// <returns></returns>
         public List<DomainModels.Attribute> List()
         {
             List<DomainModels.Attribute> list = new List<DomainModels.Attribute>();

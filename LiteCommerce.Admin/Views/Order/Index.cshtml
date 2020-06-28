@@ -184,7 +184,7 @@
                 int nextPage = currentPage + 1;
                 <li><a href="#">...</a></li>
                 <li><a href="~/Order?page=@nextPage&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">›</a></li>
-                    <li><a href="~/Order?page=@nextPage&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">››</a></li>
+                <li><a href="~/Order?page=@Model.PageCount&customerID=@Model.CustomerID&employeeID=@Model.EmployeeID&shipperID=@Model.ShipperID">››</a></li>
             }
         }
     </ul>

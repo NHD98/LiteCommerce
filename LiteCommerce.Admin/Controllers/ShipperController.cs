@@ -36,7 +36,7 @@ namespace LiteCommerce.Admin.Controllers
             return View(model);
         }
         /// <summary>
-        /// 
+        /// tao moi hoac sua
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -73,7 +73,11 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + ": " + ex.StackTrace);
             }
         }
-
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="shipper"></param>
+        /// <returns></returns>
         public ActionResult Input(Shipper shipper)
         {
             try
@@ -107,6 +111,11 @@ namespace LiteCommerce.Admin.Controllers
             }
             return View(shipper);
         }
+        /// <summary>
+        /// xoa
+        /// </summary>
+        /// <param name="shipperIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int[] shipperIDs)
         {

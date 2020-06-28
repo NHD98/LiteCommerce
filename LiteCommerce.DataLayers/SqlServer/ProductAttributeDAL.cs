@@ -17,7 +17,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// them thuoc tinh
         /// </summary>
         /// <param name="attribute"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return result;
         }
         /// <summary>
-        /// 
+        /// cap nhat thuoc tinh
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
@@ -92,7 +92,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return result;
         }
         /// <summary>
-        /// 
+        /// xoa thuoc tinh
         /// </summary>
         /// <param name="productIDs"></param>
         /// <returns></returns>
@@ -121,7 +121,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return result;
         }
         /// <summary>
-        /// 
+        /// lay chi tiet san pham
         /// </summary>
         /// <param name="productID"></param>
         /// <returns></returns>

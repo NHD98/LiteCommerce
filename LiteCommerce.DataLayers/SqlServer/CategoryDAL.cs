@@ -19,7 +19,7 @@ namespace LiteCommerce.DataLayers.SqlServer
         }
 
         /// <summary>
-        /// 
+        /// them category
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -50,7 +50,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return categoryID;
         }
         /// <summary>
-        /// 
+        /// dem category
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -78,7 +78,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xoa category
         /// </summary>
         /// <param name="CategoryIDs"></param>
         /// <returns></returns>
@@ -109,7 +109,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDeleted;
         }
         /// <summary>
-        /// 
+        /// lay chi tiet category
         /// </summary>
         /// <param name="CategoryID"></param>
         /// <returns></returns>
@@ -144,7 +144,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// danh sach cac category
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -194,7 +194,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cap nhat category
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

@@ -38,7 +38,7 @@ namespace LiteCommerce.Admin.Controllers
             return View(model);
         }
         /// <summary>
-        /// 
+        /// tao moi hoac sua
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -75,7 +75,11 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + ": " + ex.StackTrace);
             }
         }
-
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult Input(Supplier model)
         {
             try
@@ -139,7 +143,7 @@ namespace LiteCommerce.Admin.Controllers
             return View(model);
         }
         /// <summary>
-        /// 
+        /// xoa
         /// </summary>
         /// <param name="supplierIDs"></param>
         /// <returns></returns>

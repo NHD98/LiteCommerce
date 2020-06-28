@@ -40,7 +40,7 @@ namespace LiteCommerce.Admin.Controllers
             return View(model);
         }
         /// <summary>
-        /// 
+        /// tao moi hoac sua
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -73,7 +73,13 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + ": " + ex.StackTrace);
             }
         }
-
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="atts"></param>
+        /// <param name="uploadFile"></param>
+        /// <returns></returns>
         public ActionResult Input(Product model, string[] atts, HttpPostedFileBase uploadFile)
         {
             try
@@ -197,7 +203,11 @@ namespace LiteCommerce.Admin.Controllers
             }
             return View(model);
         }
-
+        /// <summary>
+        /// xoa
+        /// </summary>
+        /// <param name="productIDs"></param>
+        /// <returns></returns>
         public ActionResult Delete(int[] productIDs)
         {
             if (productIDs != null)

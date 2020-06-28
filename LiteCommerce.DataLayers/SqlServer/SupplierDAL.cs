@@ -25,7 +25,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// them supplier
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -82,7 +82,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return supplierId;
         }
         /// <summary>
-        /// 
+        /// dem suppliers
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -110,7 +110,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xoa suppliers
         /// </summary>
         /// <param name="supplierIDs"></param>
         /// <returns></returns>
@@ -141,7 +141,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDeleted;
         }
         /// <summary>
-        /// 
+        /// lay chi tiet supplier
         /// </summary>
         /// <param name="supplierID"></param>
         /// <returns></returns>
@@ -183,7 +183,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// danh sach suppliers
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -238,7 +238,10 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// lay tat ca suppliers
+        /// </summary>
+        /// <returns></returns>
         public List<Supplier> ListAll()
         {
             List<Supplier> data = new List<Supplier>();
@@ -276,7 +279,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cap nhat supplier
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

@@ -12,14 +12,17 @@ namespace LiteCommerce.DataLayers.SqlServer
     public class EmployeeDAL : IEmployeeDAL
     {
         private string connectionString;
-
+        /// <summary>
+        /// khoi tao
+        /// </summary>
+        /// <param name="connectionString"></param>
         public EmployeeDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
         /// <summary>
-        /// 
+        /// them employee
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -64,7 +67,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return EmployeeId;
         }
         /// <summary>
-        /// 
+        /// dem employees
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -92,7 +95,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xoa employees
         /// </summary>
         /// <param name="EmployeeIDs"></param>
         /// <returns></returns>
@@ -123,7 +126,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDeleted;
         }
         /// <summary>
-        /// 
+        /// chi tiet employee
         /// </summary>
         /// <param name="EmployeeID"></param>
         /// <returns></returns>
@@ -169,7 +172,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// danh sach employee
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -230,7 +233,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cap nhat employee
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -274,7 +277,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return rowsAffected > 0;
         }
         /// <summary>
-        /// 
+        /// doi mat khau
         /// </summary>
         /// <param name="userID"></param>
         /// <param name="password"></param>

@@ -12,14 +12,17 @@ namespace LiteCommerce.DataLayers.SqlServer
     public class ShipperDAL : IShipperDAL
     {
         private string connectionString;
-
+        /// <summary>
+        /// khoi tao
+        /// </summary>
+        /// <param name="connectionString"></param>
         public ShipperDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
         /// <summary>
-        /// 
+        /// them shipper
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -43,7 +46,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return shipperID;
         }
         /// <summary>
-        /// 
+        /// dem shippers
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -71,7 +74,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xoa shippers
         /// </summary>
         /// <param name="ShipperIDs"></param>
         /// <returns></returns>
@@ -104,7 +107,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDelete;
         }
         /// <summary>
-        /// 
+        /// lay chi tiet shipper
         /// </summary>
         /// <param name="ShipperID"></param>
         /// <returns></returns>
@@ -138,7 +141,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return shipper;
         }
         /// <summary>
-        /// 
+        /// danh sach shipper
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -187,7 +190,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cap nhat shipper
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

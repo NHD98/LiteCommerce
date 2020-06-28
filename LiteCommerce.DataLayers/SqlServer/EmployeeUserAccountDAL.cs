@@ -20,7 +20,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// xac thuc 
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="password"></param>

@@ -141,7 +141,11 @@ namespace LiteCommerce.BusinessLayers
         {
             return CustomerDB.Update(customer);
         }
-
+        /// <summary>
+        /// xoa khach hang
+        /// </summary>
+        /// <param name="customerIDs"></param>
+        /// <returns></returns>
         public static int DeleteCustomer(string[] customerIDs)
         {
             return CustomerDB.Delete(customerIDs);
@@ -341,28 +345,51 @@ namespace LiteCommerce.BusinessLayers
         {
             return AttributeDB.List();
         }
-
+        /// <summary>
+        /// lay danh sach quoc gia
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <param name="rowCount"></param>
+        /// <returns></returns>
         public static List<Country> GetCountries(int page, int pageSize, string searchValue, out int rowCount)
         {
             rowCount = CountryDB.Count(searchValue);
             return CountryDB.List(page, pageSize, searchValue);
         }
-
+        /// <summary>
+        /// lay chi tiet quoc gia
+        /// </summary>
+        /// <param name="countryID"></param>
+        /// <returns></returns>
         public static Country GetCountry(string countryID)
         {
             return CountryDB.Get(countryID);
         }
-
+        /// <summary>
+        /// them quoc gia
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         public static bool AddCountry(Country country)
         {
             return CountryDB.Add(country);
         }
-
+        /// <summary>
+        /// sua quoc gia
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         public static bool UpdateCountry(Country country)
         {
             return CountryDB.Update(country);
         }
-
+        /// <summary>
+        /// xoa quoc gia
+        /// </summary>
+        /// <param name="countryIDs"></param>
+        /// <returns></returns>
         public static int DeleteCountries(string[] countryIDs)
         {
             return CountryDB.Delete(countryIDs);

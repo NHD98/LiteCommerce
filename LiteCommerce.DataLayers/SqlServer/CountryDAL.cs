@@ -12,10 +12,21 @@ namespace LiteCommerce.DataLayers.SqlServer
     public class CountryDAL : ICountryDAL
     {
         private string connectionString;
+        /// <summary>
+        /// khoi tao
+        /// </summary>
+        /// <param name="connectionString"></param>
         public CountryDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
+        /// <summary>
+        /// danh sach quoc gia
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public List<Country> List(int page, int pageSize, string searchValue)
         {
             List<Country> list = new List<Country>();
@@ -55,7 +66,11 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return list;
         }
-
+        /// <summary>
+        /// dem quoc gia
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public int Count(string searchValue)
         {
             int count = 0;
@@ -79,7 +94,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return count;
         }
-
+        /// <summary>
+        /// lay chi tiet quoc gia
+        /// </summary>
+        /// <param name="countryID"></param>
+        /// <returns></returns>
         public Country Get(string countryID)
         {
             Country data = null;
@@ -109,7 +128,11 @@ namespace LiteCommerce.DataLayers.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// them quoc gia
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Add(Country data)
         {
             int rowEffect = 0;
@@ -140,7 +163,11 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return rowEffect > 0;
         }
-
+        /// <summary>
+        /// cap nhat quoc gia
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Update(Country data)
         {
             int rowsAffected = 0;
@@ -164,7 +191,11 @@ namespace LiteCommerce.DataLayers.SqlServer
 
             return rowsAffected > 0;
         }
-
+        /// <summary>
+        /// xoa quoc gia
+        /// </summary>
+        /// <param name="countryIDs"></param>
+        /// <returns></returns>
         public int Delete(string[] countryIDs)
         {
             int countDeleted = 0;

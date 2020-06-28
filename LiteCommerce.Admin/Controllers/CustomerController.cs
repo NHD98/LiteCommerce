@@ -38,6 +38,11 @@ namespace LiteCommerce.Admin.Controllers
 
             return View(model);
         }
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -57,7 +62,11 @@ namespace LiteCommerce.Admin.Controllers
                 return View(customer);
             }
         }
-
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult Input(Customer model)
         {
             try
@@ -113,6 +122,11 @@ namespace LiteCommerce.Admin.Controllers
             }
             return View(model);
         }
+        /// <summary>
+        /// xoa
+        /// </summary>
+        /// <param name="customerIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(string[] customerIDs)
         {

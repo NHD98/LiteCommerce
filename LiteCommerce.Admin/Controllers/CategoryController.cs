@@ -35,6 +35,11 @@ namespace LiteCommerce.Admin.Controllers
 
             return View(model);
         }
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -68,7 +73,11 @@ namespace LiteCommerce.Admin.Controllers
                 return Content(ex.Message + ": " + ex.StackTrace);
             }
         }
-
+        /// <summary>
+        /// tao moi hoac sua
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public ActionResult Input(Category model)
         {
             try
@@ -103,7 +112,11 @@ namespace LiteCommerce.Admin.Controllers
             }
             return View(model);
         }
-
+        /// <summary>
+        /// xoa
+        /// </summary>
+        /// <param name="categoryIDs"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int[] categoryIDs = null)
         {

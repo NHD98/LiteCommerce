@@ -48,7 +48,11 @@ namespace LiteCommerce.BusinessLayers
         {
             return EmployeeDB.Get(employeeID);
         }
-
+        /// <summary>
+        /// cap nhat employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public static bool UpdateEmployee(Employee employee)
         {
             return EmployeeDB.Update(employee);

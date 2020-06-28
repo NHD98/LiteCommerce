@@ -12,14 +12,17 @@ namespace LiteCommerce.DataLayers.SqlServer
     public class CustomerDAL : ICustomerDAL
     {
         private string connectionString;
-
+        /// <summary>
+        /// khoi tao
+        /// </summary>
+        /// <param name="connectionString"></param>
         public CustomerDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
         /// <summary>
-        /// 
+        /// them customer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -75,7 +78,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return customerInsert;
         }
         /// <summary>
-        /// 
+        /// dem customer
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -104,7 +107,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xoa customer
         /// </summary>
         /// <param name="CustomerIDs"></param>
         /// <returns></returns>
@@ -136,7 +139,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDeleted;
         }
         /// <summary>
-        /// 
+        /// lay chi tiet customer
         /// </summary>
         /// <param name="CustomerID"></param>
         /// <returns></returns>
@@ -177,7 +180,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// lay danh sach customer
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -234,7 +237,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cap nhat customer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

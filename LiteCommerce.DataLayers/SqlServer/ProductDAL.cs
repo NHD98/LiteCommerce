@@ -21,7 +21,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             this.connectionString = connectionString;
         }
         /// <summary>
-        /// 
+        /// them product
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -51,7 +51,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return productID;
         }
         /// <summary>
-        /// 
+        /// dem product
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -86,7 +86,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return count;
         }
         /// <summary>
-        /// 
+        /// xoa products
         /// </summary>
         /// <param name="ProductIDs"></param>
         /// <returns></returns>
@@ -117,7 +117,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return countDeleted;
         }
         /// <summary>
-        /// 
+        /// lay chi tiet product
         /// </summary>
         /// <param name="ProductID"></param>
         /// <returns></returns>
@@ -162,7 +162,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// danh sach products
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -223,7 +223,7 @@ namespace LiteCommerce.DataLayers.SqlServer
             return data;
         }
         /// <summary>
-        /// 
+        /// cap nhat product
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

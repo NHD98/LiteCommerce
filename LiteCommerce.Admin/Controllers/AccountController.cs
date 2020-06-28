@@ -16,7 +16,7 @@ namespace LiteCommerce.Admin.Controllers
     {
         // GET: Account
         /// <summary>
-        /// 
+        /// doi mat khau
         /// </summary>
         /// <returns></returns>
         public ActionResult ChangePassword()
@@ -24,7 +24,7 @@ namespace LiteCommerce.Admin.Controllers
             return View();
         }
         /// <summary>
-        /// 
+        /// doi mat khau
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -71,6 +71,10 @@ namespace LiteCommerce.Admin.Controllers
             Employee data = EmployeeBLL.GetEmployee(Convert.ToInt32(userData.UserID));
             return View(data);
         }
+        /// <summary>
+        /// dang xuat
+        /// </summary>
+        /// <returns></returns>
         public ActionResult SignOut()
         {
             Session.Abandon();
@@ -78,6 +82,10 @@ namespace LiteCommerce.Admin.Controllers
             System.Web.Security.FormsAuthentication.SignOut();
             return RedirectToAction("SignIn");
         }
+        /// <summary>
+        /// dang nhap
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SignIn()
@@ -87,6 +95,12 @@ namespace LiteCommerce.Admin.Controllers
             return View();
 
         }
+        /// <summary>
+        /// dang nhap
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,6 +132,10 @@ namespace LiteCommerce.Admin.Controllers
                 return View();
             }
         }
+        /// <summary>
+        /// quen mat khau
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
